@@ -9,7 +9,20 @@ module.exports = {
 
 async function add(user) {
   try {
-    const [id] = await db('users').insert(user, 'id');
+    const [id] = await db('users').insert(
+      {
+        username: user.username,
+        password: user.password,
+        email: user.email
+      },
+      'id'
+    );
+
+    if (user.type === 'diner') {
+      await db('diners').insert({ currentLocation: user.location, userId: id });
+    } else {
+      await db('operators').insert({ userId: id });
+    }
 
     return findById(id);
   } catch (error) {

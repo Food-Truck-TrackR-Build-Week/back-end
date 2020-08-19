@@ -9,8 +9,6 @@ const { isValid } = require('../users/users-service');
 
 /* ----- POST /api/auth/register ----- */
 router.post('/register', (req, res) => {
-  console.log('here');
-
   const credentials = req.body;
 
   if (isValid(credentials)) {

@@ -27,4 +27,20 @@ router.get('/:id/favoriteTrucks', restricted, (req, res) => {
     });
 });
 
+/* ----- POST /api/diners/:id/favoriteTrucks ----- */
+router.post('/:id/favoriteTrucks', restricted, (req, res) => {
+  const { dinerId } = req.params;
+  const truckId = req.body.truckId;
+
+  if (!truckId) res.status(400).json({ message: 'truckId is required' });
+
+  Diners.addTruckToFavs(dinerId, truckId)
+    .then((favorites) => {
+      res.status(201).json(favorites);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 module.exports = router;

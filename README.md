@@ -2,7 +2,7 @@ diner schema:
 username: string
 password: string
 email: string
-location: string
+currentLocation: string
 
 operator schema:
 username: string

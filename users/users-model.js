@@ -7,7 +7,7 @@ module.exports = {
   findById
 };
 
-async function add(user) {
+async function add(user, userType) {
   try {
     const [id] = await db('users').insert(
       {
@@ -18,7 +18,7 @@ async function add(user) {
       'id'
     );
 
-    if (user.type === 'diner') {
+    if (userType === 'diner') {
       await db('diners').insert({ currentLocation: user.location, userId: id });
     } else {
       await db('operators').insert({ userId: id });

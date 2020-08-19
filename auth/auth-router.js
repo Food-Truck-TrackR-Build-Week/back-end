@@ -8,8 +8,15 @@ const Users = require('../users/users-model');
 const { isValid } = require('../users/users-service');
 
 /* ----- POST /api/auth/register ----- */
-router.post('/register', (req, res) => {
+router.post('/register/:userType', (req, res) => {
   const credentials = req.body;
+  const { userType } = req.params;
+
+  if (userType !== 'diner' && userType !== 'operator') {
+    res.status(400).json({
+      message: 'invalid user type - must be either diner or operator'
+    });
+  }
 
   if (isValid(credentials)) {
     const rounds = process.env.BCRYPT_ROUNDS || 8;
@@ -18,7 +25,7 @@ router.post('/register', (req, res) => {
 
     credentials.password = hash;
 
-    Users.add(credentials)
+    Users.add(credentials, userType)
       .then((user) => {
         res.status(201).json({ data: user });
       })

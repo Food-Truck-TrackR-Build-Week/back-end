@@ -45,4 +45,24 @@ router.post('/', restricted, (req, res) => {
     });
 });
 
+/* PUT /api/trucks/:id ----- */
+router.put('/:id', restricted, (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+
+  Trucks.findById(id)
+    .then((truck) => {
+      if (truck) {
+        Trucks.update(changes, id).then((updatedTruck) => {
+          res.json(updatedTruck);
+        });
+      } else {
+        res.status(404).json({ message: 'Could not find truck with given id' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to update truck' });
+    });
+});
+
 module.exports = router;

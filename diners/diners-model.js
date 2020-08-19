@@ -1,9 +1,16 @@
 const db = require('../data/db-config');
 
 module.exports = {
-  find
+  find,
+  findFavoriteTrucks
 };
 
 function find() {
-  return db('diners').join('users', 'diners.userId', 'users.id');
+  return db('diners');
+}
+
+function findFavoriteTrucks(id) {
+  return db('trucks')
+    .join('diners_trucks', 'trucks.id', 'diners_trucks.truckId')
+    .where({ 'diners_trucks.dinerId': id });
 }

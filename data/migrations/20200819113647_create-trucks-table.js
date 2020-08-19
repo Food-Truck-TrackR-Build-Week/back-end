@@ -3,6 +3,8 @@ exports.up = function (knex) {
     tbl.increments();
     tbl.string('imageOfTruck', 256).notNullable();
     tbl.string('cuisineType', 128).notNullable();
+    tbl.string('currentLocation', 256).notNullable();
+    tbl.date('departureTime').notNullable().defaultTo(knex.fn.now());
     tbl
       .integer('operatorId')
       .unsigned()

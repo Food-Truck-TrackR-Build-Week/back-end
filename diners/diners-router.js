@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const restricted = require('../auth/restricted-middleware');
 const Diners = require('./diners-model');
 
 /* ----- GET /api/diners ----- */

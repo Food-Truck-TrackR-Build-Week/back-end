@@ -9,6 +9,8 @@ username: string
 password: string
 email: string
 
-POST /api/auth/:userType
+Create a new diner: POST /api/auth/diner
 
-POST /api/auth/login
+Create a new operator: POST /api/auth/operator
+
+Login: POST /api/auth/login

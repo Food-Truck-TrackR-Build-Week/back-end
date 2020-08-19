@@ -45,7 +45,7 @@ router.post('/', restricted, (req, res) => {
     });
 });
 
-/* PUT /api/trucks/:id ----- */
+/* ----- PUT /api/trucks/:id ----- */
 router.put('/:id', restricted, (req, res) => {
   const { id } = req.params;
   const changes = req.body;
@@ -62,6 +62,23 @@ router.put('/:id', restricted, (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ message: 'Failed to update truck' });
+    });
+});
+
+/* ----- DELETE /api/trucks/:id ----- */
+router.delete('/:id', restricted, (req, res) => {
+  const { id } = req.params;
+
+  Trucks.remove(id)
+    .then((deleted) => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res.status(404).json({ message: 'Could not find truck with given id' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to delete truck' });
     });
 });
 

@@ -4,7 +4,8 @@ module.exports = {
   add,
   find,
   findById,
-  update
+  update,
+  remove
 };
 
 async function add(truck) {
@@ -32,4 +33,8 @@ function update(changes, id) {
     .then((count) => {
       return findById(id);
     });
+}
+
+function remove(id) {
+  return db('trucks').where({ id }).del();
 }

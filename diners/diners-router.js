@@ -29,7 +29,7 @@ router.get('/:id/favoriteTrucks', restricted, (req, res) => {
 
 /* ----- POST /api/diners/:id/favoriteTrucks ----- */
 router.post('/:id/favoriteTrucks', restricted, (req, res) => {
-  const { dinerId } = req.params;
+  const dinerId = req.params.id;
   const truckId = req.body.truckId;
 
   if (!truckId) res.status(400).json({ message: 'truckId is required' });
@@ -37,6 +37,22 @@ router.post('/:id/favoriteTrucks', restricted, (req, res) => {
   Diners.addTruckToFavs(dinerId, truckId)
     .then((favorites) => {
       res.status(201).json(favorites);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+/* ----- DELETE /api/diners/:id/favoriteTrucks ----- */
+router.delete('/:id/favoriteTrucks', restricted, (req, res) => {
+  const dinerId = req.params.id;
+  const truckId = req.body.truckId;
+
+  if (!truckId) res.status(400).json({ message: 'truckId is required' });
+
+  Diners.removeTruckFromFavs(dinerId, truckId)
+    .then((favorites) => {
+      res.json(favorites);
     })
     .catch((err) => {
       res.send(err);

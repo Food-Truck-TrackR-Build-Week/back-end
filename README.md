@@ -46,3 +46,13 @@ POST /api/auth/login - authenticates a diner or operator
 
 - username and password are required
 - returns a JSON web token - include `{ authorization: Bearer <token> }` in request headers to access restricted endpoints
+
+GET /api/trucks - restricted, returns an array of truck objects
+
+GET /api/trucks/:id - restricted, returns the truck with the given id
+
+POST /api/trucks - restricted, creates a new truck
+
+PUT /api/trucks/:id - restricted, updates the truck with the given id
+
+DELETE /api/trucks/:id - restricted, deletes the truck with the given id

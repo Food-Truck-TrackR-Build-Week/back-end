@@ -5,6 +5,9 @@ const secrets = require('../config/secrets');
 const router = require('express').Router();
 
 const Users = require('../users/users-model');
+const Diners = require('../diners/diners-model');
+const Operators = require('../operators/operators-model');
+
 const {
   validLogin,
   validDiner,
@@ -34,8 +37,14 @@ router.post('/register/diner', (req, res) => {
     newDiner.password = hash;
 
     Users.add(newDiner, 'diner')
-      .then((diner) => {
-        return res.status(201).json(diner);
+      .then((id) => {
+        Diners.findById(id)
+          .then((diner) => {
+            return res.status(201).json(diner);
+          })
+          .catch((err) => {
+            res.status(500).json({ message: err.message });
+          });
       })
       .catch((err) => {
         return res.status(500).json({ message: err.message });
@@ -71,8 +80,15 @@ router.post('/register/operator', (req, res) => {
     newOperator.password = hash;
 
     Users.add(newOperator, 'operator')
-      .then((operator) => {
-        return res.status(201).json(operator);
+      .then((id) => {
+        console.log('id', id);
+        Operators.findById(id)
+          .then((operator) => {
+            return res.status(201).json(operator);
+          })
+          .catch((err) => {
+            res.status(500).json({ message: err.message });
+          });
       })
       .catch((err) => {
         return res.status(500).json({ message: err.message });

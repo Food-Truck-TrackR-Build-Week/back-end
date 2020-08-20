@@ -24,7 +24,7 @@ async function add(user, userType) {
       await db('operators').insert({ userId: id });
     }
 
-    return findById(id);
+    return id;
   } catch (error) {
     throw error;
   }

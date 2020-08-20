@@ -14,7 +14,18 @@ function find() {
 }
 
 function findById(id) {
-  return db('diners').where({ id }).first();
+  return db('diners')
+    .join('users', 'diners.userId', '=', 'users.id')
+    .where({ 'users.id': id })
+    .select(
+      'diners.id as id',
+      'users.id as userId',
+      'username',
+      'password',
+      'email',
+      'currentLocation'
+    )
+    .first();
 }
 
 function findFavoriteTrucks(id) {

@@ -43,3 +43,4 @@ POST /api/auth/register/operator - creates a new operator
 POST /api/auth/login - authenticates a diner or operator
 
 - username and password are required
+- returns a JSON web token - include {authorization: Bearer <token>} in request headers to access restricted endpoints

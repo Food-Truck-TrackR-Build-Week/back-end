@@ -53,7 +53,7 @@ GET /api/trucks/:id - restricted, returns the truck with the given id
 
 POST /api/trucks - restricted, creates a new truck
 
-- `req.body`: `imageOfTruck`, `cuisineType`, `currentLocation`, `departureTime` and `operatorId` are required
+- `req.body`: `imageOfTruck`, `cuisineType`, `currentLocation`, and `operatorId` are required, `departureTime` defaults to current time if not provided
 - returns the new truck that was added to the db
 
 PUT /api/trucks/:id - restricted, updates the truck with the given id

@@ -3,6 +3,7 @@ const router = require('express').Router();
 const restricted = require('../auth/restricted-middleware');
 
 const Trucks = require('./trucks-model');
+const { validTruck } = require('./trucks-service');
 
 /* ----- GET /api/trucks ----- */
 router.get('/', restricted, (req, res) => {
@@ -36,13 +37,20 @@ router.get('/:id', restricted, (req, res) => {
 router.post('/', restricted, (req, res) => {
   const truck = req.body;
 
-  Trucks.add(truck)
-    .then((truck) => {
-      res.status(201).json({ data: truck });
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
+  if (validTruck(truck)) {
+    Trucks.add(truck)
+      .then((truck) => {
+        res.status(201).json({ data: truck });
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.message });
+      });
+  } else {
+    res.status(400).json({
+      message:
+        'imageOfTruck, cuisineType, currentLocation, and operatorId are required to create a new truck'
     });
+  }
 });
 
 /* ----- PUT /api/trucks/:id ----- */

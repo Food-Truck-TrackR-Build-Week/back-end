@@ -2,6 +2,7 @@ const db = require('../data/db-config');
 
 module.exports = {
   find,
+  findById,
   findFavoriteTrucks,
   findTruckById,
   addTruckToFavs,
@@ -10,6 +11,10 @@ module.exports = {
 
 function find() {
   return db('diners').join('users', 'diners.userId', '=', 'users.id');
+}
+
+function findById(id) {
+  return db('diners').where({ id }).first();
 }
 
 function findFavoriteTrucks(id) {

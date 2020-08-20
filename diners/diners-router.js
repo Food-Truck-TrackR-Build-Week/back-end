@@ -1,6 +1,7 @@
 const router = require('express').Router();
 
 const restricted = require('../auth/restricted-middleware');
+const checkDinerId = require('./checkDinerId-middleware');
 const Diners = require('./diners-model');
 
 /* ----- GET /api/diners ----- */
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 /* ----- GET /api/diners/:id/favoriteTrucks ----- */
-router.get('/:id/favoriteTrucks', restricted, (req, res) => {
+router.get('/:id/favoriteTrucks', restricted, checkDinerId, (req, res) => {
   const { id } = req.params;
 
   Diners.findFavoriteTrucks(id)
@@ -28,7 +29,7 @@ router.get('/:id/favoriteTrucks', restricted, (req, res) => {
 });
 
 /* ----- POST /api/diners/:id/favoriteTrucks ----- */
-router.post('/:id/favoriteTrucks', restricted, (req, res) => {
+router.post('/:id/favoriteTrucks', restricted, checkDinerId, (req, res) => {
   const dinerId = req.params.id;
   const truckId = req.body.truckId;
 

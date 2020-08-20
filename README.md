@@ -68,3 +68,5 @@ DELETE /api/diners/:id/favoriteTrucks - restricted, deletes a truck from the din
 
 - `req.body`: `truckId` is required
 - returns the updated array of the diner's favorite trucks
+
+GET /api/operators/:id/trucksOwned - restricted, returns an array of trucks owned by the operator with the given id

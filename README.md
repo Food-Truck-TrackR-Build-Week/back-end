@@ -35,10 +35,12 @@
 POST /api/auth/register/diner - creates a new diner
 
 - username, password, email and location are required
+- returns the new diner object that was added to db
 
 POST /api/auth/register/operator - creates a new operator
 
 - username, password, and email are required
+- returns the new operator object that was added to db
 
 POST /api/auth/login - authenticates a diner or operator
 

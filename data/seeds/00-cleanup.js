@@ -7,7 +7,7 @@ exports.seed = function (knex) {
       restartIdentity: true,
       ignoreTables: ['knex_migrations', 'knex_migrations_lock']
     })
-    .then(() => console.log('\n*** Table truncated. Ready to seed. *** \n'));
+    .then(() => console.log('\n*** Tables truncated. Ready to seed. *** \n'));
 };
 
 // exports.seed = function (knex) {

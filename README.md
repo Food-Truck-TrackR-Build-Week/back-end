@@ -21,6 +21,14 @@
 
 ### API
 
-POST /api/auth/register/diner - creates a new diner  
-POST /api/auth/register/operator - creates a new operator  
+POST /api/auth/register/diner - creates a new diner
+
+- username, password, email and location are required
+
+POST /api/auth/register/operator - creates a new operator
+
+- username, password, and email are required
+
 POST /api/auth/login - authenticates a diner or operator
+
+- username and password are required

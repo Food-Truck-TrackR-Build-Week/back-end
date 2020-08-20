@@ -1,23 +1,23 @@
 ### Diner schema
 
-{  
- id: integer,  
- dinerId: integer,  
- username: string,  
- password: string,  
- email: string,  
- location: string  
-}
+    {
+      id: integer,
+      dinerId: integer,
+      username: string,
+      password: string,
+      email: string,
+      location: string
+    }
 
 ### Operator schema
 
-{  
- id: integer,  
- operatorId: integer,  
- username: string,  
- password: string,  
- email: string  
-}
+    {
+      id: integer,
+      operatorId: integer,
+      username: string,
+      password: string,
+      email: string
+    }
 
 ### API
 

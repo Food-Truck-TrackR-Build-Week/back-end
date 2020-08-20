@@ -1,11 +1,25 @@
+const Users = require('./users-model');
+
 module.exports = {
-  isValid
+  validDiner,
+  validOperator,
+  validLogin
 };
 
-function isValid(credentials) {
+function validLogin(credentials) {
   return Boolean(
     credentials.username &&
       credentials.password &&
       typeof credentials.password === 'string'
   );
+}
+
+function validDiner(diner) {
+  return Boolean(
+    diner.username && diner.password && diner.email && diner.location
+  );
+}
+
+function validOperator(operator) {
+  return Boolean(operator.username && operator.password && operator.email);
 }

@@ -13,11 +13,11 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-server.use('/api/users', usersRouter);
 server.use('/api/auth', authRouter);
+server.use('/api/users', usersRouter);
 server.use('/api/diners', dinersRouter);
-server.use('/api/trucks', trucksRouter);
 server.use('/api/operators', operatorsRouter);
+server.use('/api/trucks', trucksRouter);
 
 server.get('/', (req, res) => {
   res.json({ api: 'up' });

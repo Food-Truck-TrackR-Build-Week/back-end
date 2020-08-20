@@ -18,15 +18,11 @@ module.exports = {
     }
   },
   production: {
-    client: 'sqlite3',
-    useNullAsDefault: true,
-    connection: {
-      filename: './data/data.db3'
-    },
+    client: 'pg',
+    connection: pgConnection,
     pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      }
+      min: 2,
+      max: 10
     },
     migrations: {
       directory: './data/migrations'

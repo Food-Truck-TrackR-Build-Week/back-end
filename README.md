@@ -2,21 +2,32 @@
 
     {
       id: integer,
-      dinerId: integer,
+      userId: integer,
       username: string,
       password: string,
       email: string,
-      location: string
+      currentLocation: string
     }
 
 ### Operator schema
 
     {
       id: integer,
-      operatorId: integer,
+      userId: integer,
       username: string,
       password: string,
       email: string
+    }
+
+### Truck schema
+
+    {
+      id: integer,
+      imageOfTruck: string,
+      cuisineType: string,
+      currentLocation: string,
+      departureTime: date,
+      operatorId: integer
     }
 
 ### API

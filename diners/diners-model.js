@@ -9,7 +9,7 @@ module.exports = {
 };
 
 function find() {
-  return db('diners');
+  return db('diners').join('users', 'diners.userId', '=', 'users.id');
 }
 
 function findFavoriteTrucks(id) {

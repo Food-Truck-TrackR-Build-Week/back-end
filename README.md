@@ -1,4 +1,9 @@
-diner schema:
+### diner object
+
+{  
+ "id": 1,  
+ "userId":
+}
 username: string
 password: string
 email: string

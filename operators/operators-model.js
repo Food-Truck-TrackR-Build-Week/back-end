@@ -6,7 +6,7 @@ module.exports = {
 };
 
 function find() {
-  return db('operators');
+  return db('operators').join('users', 'operators.userid', '=', 'users.id');
 }
 
 function findTrucksOwned(id) {

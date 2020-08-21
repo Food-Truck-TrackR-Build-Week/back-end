@@ -81,7 +81,6 @@ router.post('/register/operator', (req, res) => {
 
     Users.add(newOperator, 'operator')
       .then((id) => {
-        console.log('id', id);
         Operators.findById(id)
           .then((operator) => {
             return res.status(201).json(operator);

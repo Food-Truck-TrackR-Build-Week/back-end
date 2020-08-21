@@ -17,6 +17,8 @@ const {
 /* ----- POST /api/auth/register/diner ----- */
 router.post('/register/diner', (req, res) => {
   const newDiner = req.body;
+  newDiner.type = 'diner';
+  console.log('newDiner', newDiner);
 
   if (validDiner(newDiner)) {
     Users.findBy({ username: newDiner.username })
@@ -60,6 +62,7 @@ router.post('/register/diner', (req, res) => {
 /* ----- POST /api/auth/register/operator ----- */
 router.post('/register/operator', (req, res) => {
   const newOperator = req.body;
+  newOperator.type = 'operator';
 
   if (validOperator(newOperator)) {
     Users.findBy({ username: newOperator.username })
@@ -108,7 +111,7 @@ router.post('/login', (req, res) => {
     Users.findBy({ username }).then(([user]) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ token });
+        res.status(200).json({ token, type: user.type });
       } else {
         res.status(401).json({ message: 'Invalid username/password' });
       }

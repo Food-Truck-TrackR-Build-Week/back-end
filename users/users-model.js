@@ -13,7 +13,8 @@ async function add(user, userType) {
       {
         username: user.username,
         password: user.password,
-        email: user.email
+        email: user.email,
+        type: userType
       },
       'id'
     );

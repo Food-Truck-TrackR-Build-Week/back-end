@@ -62,6 +62,8 @@ PUT /api/trucks/:id - restricted, updates the truck with the given id
 
 DELETE /api/trucks/:id - restricted, deletes the truck with the given id
 
+GET /api/trucks/:id/menu - restricted, returns an array of the `menuItems` from the `menu` for the `truck` with the given id
+
 GET /api/diners/:id/favoriteTrucks - restricted, returns an array of the diner with the given id's favorite trucks
 
 POST /api/diners/:id/favoriteTrucks - restricted, adds a truck to the diner with the given id's favorite trucks

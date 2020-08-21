@@ -1,7 +1,7 @@
 exports.seed = function (knex) {
   return knex('diners_trucks').insert([
-    { dinerId: 1, truckId: 1 },
-    { dinerId: 1, truckId: 2 },
-    { dinerId: 2, truckId: 1 }
+    { dinerId: 100001, truckId: 100001 },
+    { dinerId: 100001, truckId: 100002 },
+    { dinerId: 100002, truckId: 100001 }
   ]);
 };

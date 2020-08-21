@@ -1,17 +1,17 @@
 exports.seed = function (knex) {
   return knex('trucks').insert([
     {
-      id: 1,
+      id: 100001,
       imageOfTruck: 'truck.jpg',
       cuisineType: 'thai',
-      operatorId: 1,
+      operatorId: 100001,
       currentLocation: 'GA'
     },
     {
-      id: 2,
+      id: 100002,
       imageOfTruck: 'truck.jpg',
       cuisineType: 'bbq',
-      operatorId: 2,
+      operatorId: 100002,
       currentLocation: 'WY'
     }
   ]);

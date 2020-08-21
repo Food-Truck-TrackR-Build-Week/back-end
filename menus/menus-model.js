@@ -1,20 +1,9 @@
 const db = require('../data/db-config');
 
 module.exports = {
-  add,
   findById,
   findByTruckId
 };
-
-async function add(truckId) {
-  try {
-    const [id] = await db('menus').insert({ truckId }, 'id');
-
-    return findById(id);
-  } catch (error) {
-    throw error;
-  }
-}
 
 function findById(id) {
   return db('menus')

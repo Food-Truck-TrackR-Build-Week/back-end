@@ -1,5 +1,3 @@
-const Knex = require('knex');
-
 exports.up = function (knex) {
   return knex.schema
     .createTable('menus', (tbl) => {

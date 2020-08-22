@@ -1,6 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('trucks', (tbl) => {
     tbl.increments();
+    tbl.string('name', 256).notNullable();
     tbl.string('imageOfTruck', 256).notNullable();
     tbl.string('cuisineType', 128).notNullable();
     tbl.string('currentLocation', 256).notNullable();

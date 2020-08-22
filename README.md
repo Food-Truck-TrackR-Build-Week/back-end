@@ -62,6 +62,8 @@ PUT /api/trucks/:id - restricted, updates the truck with the given id
 
 DELETE /api/trucks/:id - restricted, deletes the truck with the given id
 
+GET /api/diners/:id - restricted, returns the diner with the given id
+
 GET /api/diners/:id/favoriteTrucks - restricted, returns an array of the diner with the given id's favorite trucks
 
 POST /api/diners/:id/favoriteTrucks - restricted, adds a truck to the diner with the given id's favorite trucks
@@ -73,5 +75,7 @@ DELETE /api/diners/:id/favoriteTrucks - restricted, deletes a truck from the din
 
 - `req.body`: `truckId` is required
 - returns the updated array of the diner's favorite trucks
+
+GET /api/operators/:id - restricted, returns the operator with the given id
 
 GET /api/operators/:id/trucksOwned - restricted, returns an array of trucks owned by the operator with the given id

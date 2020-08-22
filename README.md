@@ -7,7 +7,7 @@
       password: string,
       email: string,
       currentLocation: string,
-      type: string
+      favoriteTrucks: array of truck objects
     }
 
 ### Operator schema
@@ -18,13 +18,14 @@
       username: string,
       password: string,
       email: string,
-      type: string
+      trucksOwned: array of truck objects
     }
 
 ### Truck schema
 
     {
       id: integer,
+      name: string
       imageOfTruck: string,
       cuisineType: string,
       currentLocation: string,
@@ -61,6 +62,8 @@ POST /api/trucks - restricted, creates a new truck
 PUT /api/trucks/:id - restricted, updates the truck with the given id
 
 DELETE /api/trucks/:id - restricted, deletes the truck with the given id
+
+GET /api/trucks/:id/menu - restricted, returns an array of the `menuItems` from the `menu` for the `truck` with the given id
 
 GET /api/diners/:id/favoriteTrucks - restricted, returns an array of the diner with the given id's favorite trucks
 

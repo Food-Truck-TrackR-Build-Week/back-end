@@ -2,6 +2,7 @@ exports.seed = function (knex) {
   return knex('trucks').insert([
     {
       id: 100001,
+      name: 'truck1',
       imageOfTruck: 'truck.jpg',
       cuisineType: 'thai',
       operatorId: 100001,
@@ -9,6 +10,7 @@ exports.seed = function (knex) {
     },
     {
       id: 100002,
+      name: 'truck2',
       imageOfTruck: 'truck.jpg',
       cuisineType: 'bbq',
       operatorId: 100002,

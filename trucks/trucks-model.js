@@ -12,6 +12,8 @@ async function add(truck) {
   try {
     const [id] = await db('trucks').insert(truck, 'id');
 
+    await db('menus').insert({ truckId: id });
+
     return findById(id);
   } catch (error) {
     throw error;

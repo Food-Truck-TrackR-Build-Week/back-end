@@ -3,6 +3,7 @@ const router = require('express').Router();
 const restricted = require('../auth/restricted-middleware');
 
 const Trucks = require('./trucks-model');
+const Menus = require('../menus/menus-model');
 const { validTruck } = require('./trucks-service');
 
 /* ----- GET /api/trucks ----- */
@@ -29,7 +30,7 @@ router.get('/:id', restricted, (req, res) => {
       }
     })
     .catch((err) => {
-      res.status(500).json({ message: 'Failed to get trucks' });
+      res.status(500).json({ message: 'Failed to get truck' });
     });
 });
 
@@ -40,7 +41,7 @@ router.post('/', restricted, (req, res) => {
   if (validTruck(truck)) {
     Trucks.add(truck)
       .then((truck) => {
-        res.status(201).json({ data: truck });
+        res.status(201).json(truck);
       })
       .catch((err) => {
         res.status(500).json({ message: err.message });
@@ -48,7 +49,7 @@ router.post('/', restricted, (req, res) => {
   } else {
     res.status(400).json({
       message:
-        'imageOfTruck, cuisineType, currentLocation, and operatorId are required to create a new truck'
+        'name, imageOfTruck, cuisineType, currentLocation, and operatorId are required to create a new truck'
     });
   }
 });
@@ -87,6 +88,19 @@ router.delete('/:id', restricted, (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ message: 'Failed to delete truck' });
+    });
+});
+
+/* ----- GET /api/trucks/:id/menu ----- */
+router.get('/:id/menu', restricted, (req, res) => {
+  const { id } = req.params;
+
+  Menus.findByTruckId(id)
+    .then((menu) => {
+      res.status(200).json(menu);
+    })
+    .catch((err) => {
+      res.send(err);
     });
 });
 

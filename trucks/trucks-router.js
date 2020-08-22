@@ -22,8 +22,9 @@ router.get('/:id', restricted, (req, res) => {
   const { id } = req.params;
 
   Trucks.findById(id)
-    .then((truck) => {
+    .then(async (truck) => {
       if (truck) {
+        truck.menu = await Menus.findByTruckId(id);
         res.status(200).json(truck);
       } else {
         res.status(404).json({ message: 'Could not find truck with given id' });

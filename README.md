@@ -30,7 +30,8 @@
       cuisineType: string,
       currentLocation: string,
       departureTime: date,
-      operatorId: integer
+      operatorId: integer,
+      menu: array of menuItems objects
     }
 
 ### API

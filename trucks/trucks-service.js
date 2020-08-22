@@ -6,7 +6,8 @@ module.exports = {
 
 function validTruck(truck) {
   return Boolean(
-    truck.imageOfTruck &&
+    truck.name &&
+      truck.imageOfTruck &&
       truck.cuisineType &&
       truck.currentLocation &&
       truck.operatorId

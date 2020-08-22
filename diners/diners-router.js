@@ -15,6 +15,20 @@ router.get('/', (req, res) => {
     });
 });
 
+/* ----- GET /api/diners/:id ----- */
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+
+  Diners.findById(id)
+    .then(async (diner) => {
+      diner.favoriteTrucks = await Diners.findFavoriteTrucks(id);
+      res.status(200).json(diner);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 /* ----- GET /api/diners/:id/favoriteTrucks ----- */
 router.get('/:id/favoriteTrucks', restricted, checkDinerId, (req, res) => {
   const { id } = req.params;

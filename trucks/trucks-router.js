@@ -7,14 +7,18 @@ const Menus = require('../menus/menus-model');
 const { validTruck } = require('./trucks-service');
 
 /* ----- GET /api/trucks ----- */
-router.get('/', restricted, (req, res) => {
-  Trucks.find()
-    .then((trucks) => {
-      res.status(200).json(trucks);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+router.get('/', restricted, async (req, res) => {
+  try {
+    const trucks = await Trucks.find();
+
+    for (const truck of trucks) {
+      truck.menu = await Menus.findByTruckId(truck.id);
+    }
+
+    res.status(200).json(trucks);
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 /* ----- GET /api/trucks/:id ----- */

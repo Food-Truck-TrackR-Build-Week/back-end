@@ -51,7 +51,7 @@ POST /api/auth/login - authenticates a diner or operator
 - `req.body`: `username` and `password` are required
 - returns a JSON web token and the user type (either `diner` or `operator`) - include `{ 'authorization': 'Bearer <token>' }` in request headers to access restricted endpoints
 
-GET /api/trucks - restricted, returns an array of all trucks (does not include menus)
+GET /api/trucks - restricted, returns an array of all trucks
 
 GET /api/trucks/:id - restricted, returns the truck with the given id
 

@@ -4,7 +4,7 @@ module.exports = {
   findById,
   findByTruckId,
   addMenuItem,
-  deleteMenuItem
+  removeMenuItem
 };
 
 function findById(id) {
@@ -35,6 +35,33 @@ function findByTruckId(truckId) {
     .orderBy('menuItems.id');
 }
 
-function addMenuItem(menuItem) {}
+async function addMenuItem(menuId, menuItemId) {
+  const menu = await findById(menuId);
+  const found = menu.filter((menuItem) => menuItem.id === menuItemId);
 
-function deleteMenuItem(id) {}
+  if (found.length > 0) {
+    return menu;
+  } else {
+    return db('menus_menuItems')
+      .insert({ menuId, menuItemId })
+      .then((res) => {
+        return findById(menuId);
+      });
+  }
+}
+
+async function removeMenuItem(menuId, menuItemId) {
+  const menu = await findById(menuId);
+  const found = menu.filter((menuItem) => menuItem.id === menuItemId);
+
+  if (found.length > 0) {
+    return db('menus_menuItems')
+      .where({ menuId, menuItemId })
+      .del()
+      .then((res) => {
+        return findById(menuId);
+      });
+  } else {
+    return menu;
+  }
+}

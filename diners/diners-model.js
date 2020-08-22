@@ -3,6 +3,7 @@ const db = require('../data/db-config');
 module.exports = {
   find,
   findById,
+  findByUserId,
   findFavoriteTrucks,
   findTruckById,
   addTruckToFavs,
@@ -17,6 +18,21 @@ function findById(id) {
   return db('diners')
     .join('users', 'diners.userId', '=', 'users.id')
     .where({ 'diners.id': id })
+    .select(
+      'diners.id as id',
+      'users.id as userId',
+      'username',
+      'password',
+      'email',
+      'currentLocation'
+    )
+    .first();
+}
+
+function findByUserId(userId) {
+  return db('diners')
+    .join('users', 'diners.userId', '=', 'users.id')
+    .where({ 'diners.userId': userId })
     .select(
       'diners.id as id',
       'users.id as userId',
@@ -66,8 +82,8 @@ async function removeTruckFromFavs(dinerId, truckId) {
   const found = favoriteTrucks.filter((truck) => truck.id === truckId);
 
   if (found.length > 0) {
-    return db('trucks')
-      .where({ id: truckId })
+    return db('diners_trucks')
+      .where({ dinerId, truckId })
       .del()
       .then((res) => {
         return findFavoriteTrucks(dinerId);

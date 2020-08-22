@@ -9,6 +9,7 @@ const dinersRouter = require('../diners/diners-router');
 const trucksRouter = require('../trucks/trucks-router');
 const operatorsRouter = require('../operators/operators-router.js');
 const menusRouter = require('../menus/menus-router');
+const menuItemsRouter = require('../menuItems/menuItems-router');
 
 server.use(helmet());
 server.use(express.json());
@@ -20,6 +21,7 @@ server.use('/api/diners', dinersRouter);
 server.use('/api/operators', operatorsRouter);
 server.use('/api/trucks', trucksRouter);
 server.use('/api/menus', menusRouter);
+server.use('/api/menuItems', menuItemsRouter);
 
 server.get('/', (req, res) => {
   res.json({ api: 'up' });

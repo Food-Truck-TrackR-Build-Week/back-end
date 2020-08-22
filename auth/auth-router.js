@@ -18,7 +18,6 @@ const {
 router.post('/register/diner', (req, res) => {
   const newDiner = req.body;
   newDiner.type = 'diner';
-  console.log('newDiner', newDiner);
 
   if (validDiner(newDiner)) {
     Users.findBy({ username: newDiner.username })
@@ -40,8 +39,9 @@ router.post('/register/diner', (req, res) => {
 
     Users.add(newDiner, 'diner')
       .then((id) => {
-        Diners.findById(id)
+        Diners.findByUserId(id)
           .then((diner) => {
+            diner.favoriteTrucks = [];
             return res.status(201).json(diner);
           })
           .catch((err) => {
@@ -84,8 +84,9 @@ router.post('/register/operator', (req, res) => {
 
     Users.add(newOperator, 'operator')
       .then((id) => {
-        Operators.findById(id)
+        Operators.findByUserId(id)
           .then((operator) => {
+            operator.trucksOwned = [];
             return res.status(201).json(operator);
           })
           .catch((err) => {

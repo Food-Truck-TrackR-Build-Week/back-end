@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 /* ----- GET /api/diners/:id ----- */
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
   const { id } = req.params;
 
   Diners.findById(id)
@@ -59,7 +59,7 @@ router.post('/:id/favoriteTrucks', restricted, checkDinerId, (req, res) => {
 });
 
 /* ----- DELETE /api/diners/:id/favoriteTrucks ----- */
-router.delete('/:id/favoriteTrucks', restricted, (req, res) => {
+router.delete('/:id/favoriteTrucks', restricted, checkDinerId, (req, res) => {
   const dinerId = req.params.id;
   const truckId = req.body.truckId;
 

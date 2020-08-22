@@ -13,7 +13,7 @@ router.get('/', restricted, (req, res) => {
       res.status(200).json(trucks);
     })
     .catch((err) => {
-      res, send(err);
+      res.send(err);
     });
 });
 

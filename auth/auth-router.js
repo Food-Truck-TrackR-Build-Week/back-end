@@ -109,9 +109,16 @@ router.post('/login', (req, res) => {
   const { username, password } = req.body;
 
   if (validLogin(req.body)) {
-    Users.findBy({ username }).then(([user]) => {
+    Users.findBy({ username }).then(async ([user]) => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
+        if (user.type === 'diner') {
+          const diner = await Diners.findByUserId(user.id);
+          res.status(200).json({ token, type: user.type, diner });
+        } else {
+          const operator = await Operators.findByUserId(user.id);
+          res.status(200).json({ token, type: user.type, operator });
+        }
         res.status(200).json({ token, type: user.type });
       } else {
         res.status(401).json({ message: 'Invalid username/password' });

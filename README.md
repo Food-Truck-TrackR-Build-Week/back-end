@@ -7,7 +7,7 @@
       password: string,
       email: string,
       currentLocation: string,
-      type: string
+      favoriteTrucks: array of truck objects
     }
 
 ### Operator schema
@@ -18,7 +18,7 @@
       username: string,
       password: string,
       email: string,
-      type: string
+      trucksOwned: array of truck objects
     }
 
 ### Truck schema

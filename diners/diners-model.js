@@ -16,7 +16,7 @@ function find() {
 function findById(id) {
   return db('diners')
     .join('users', 'diners.userId', '=', 'users.id')
-    .where({ 'users.id': id })
+    .where({ 'diners.id': id })
     .select(
       'diners.id as id',
       'users.id as userId',

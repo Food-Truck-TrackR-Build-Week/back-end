@@ -13,7 +13,7 @@ function find() {
 function findById(id) {
   return db('operators')
     .join('users', 'operators.userId', '=', 'users.id')
-    .where({ 'users.id': id })
+    .where({ 'operators.id': id })
     .select(
       'operators.id as id',
       'users.id as userId',

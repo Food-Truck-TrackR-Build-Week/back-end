@@ -14,6 +14,20 @@ router.get('/', restricted, (req, res) => {
     });
 });
 
+/* ----- GET /api/operators:id ----- */
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+
+  Operators.findById(id)
+    .then(async (operator) => {
+      operator.trucksOwned = await Operators.findTrucksOwned(id);
+      res.status(200).json(operator);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 /* ----- GET /api/operators/:id/trucksOwned ----- */
 router.get('/:id/trucksOwned', restricted, (req, res) => {
   const { id } = req.params;

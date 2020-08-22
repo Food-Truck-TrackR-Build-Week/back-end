@@ -2,7 +2,9 @@ const db = require('../data/db-config');
 
 module.exports = {
   findById,
-  findByTruckId
+  findByTruckId,
+  addMenuItem,
+  deleteMenuItem
 };
 
 function findById(id) {
@@ -32,3 +34,7 @@ function findByTruckId(truckId) {
     )
     .orderBy('menuItems.id');
 }
+
+function addMenuItem(menuItem) {}
+
+function deleteMenuItem(id) {}

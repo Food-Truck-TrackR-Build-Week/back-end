@@ -25,6 +25,7 @@
 
     {
       id: integer,
+      name: string
       imageOfTruck: string,
       cuisineType: string,
       currentLocation: string,

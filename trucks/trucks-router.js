@@ -49,7 +49,7 @@ router.post('/', restricted, (req, res) => {
   } else {
     res.status(400).json({
       message:
-        'imageOfTruck, cuisineType, currentLocation, and operatorId are required to create a new truck'
+        'name, imageOfTruck, cuisineType, currentLocation, and operatorId are required to create a new truck'
     });
   }
 });

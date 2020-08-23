@@ -4,6 +4,7 @@ exports.up = function (knex) {
       tbl.increments();
       tbl
         .integer('truckId')
+        .unique()
         .unsigned()
         .notNullable()
         .references('trucks.id')
@@ -12,22 +13,6 @@ exports.up = function (knex) {
     })
     .createTable('menuItems', (tbl) => {
       tbl.increments();
-      tbl.string('itemName', 256).notNullable();
-      tbl.string('itemDescription', 256).notNullable();
-      tbl.integer('itemPrice').unsigned().notNullable();
-    })
-    .createTable('itemPhotos', (tbl) => {
-      tbl.increments();
-      tbl.string('url', 128).notNullable();
-      tbl
-        .integer('menuItemId')
-        .unsigned()
-        .notNullable()
-        .references('menuItems.id')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
-    })
-    .createTable('menus_menuItems', (tbl) => {
       tbl
         .integer('menuId')
         .unsigned()
@@ -35,6 +20,12 @@ exports.up = function (knex) {
         .references('menus.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+      tbl.string('itemName', 256).notNullable();
+      tbl.string('itemDescription', 256).notNullable();
+      tbl.integer('itemPrice').unsigned().notNullable();
+    })
+    .createTable('itemPhotos', (tbl) => {
+      tbl.increments();
       tbl
         .integer('menuItemId')
         .unsigned()
@@ -42,10 +33,13 @@ exports.up = function (knex) {
         .references('menuItems.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-      tbl.primary(['menuId', 'menuItemId']);
+      tbl.string('url', 128).notNullable();
     });
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('menus');
+  return knex.schema
+    .dropTableIfExists('itemPhotos')
+    .dropTableIfExists('menuItems')
+    .dropTableIfExists('menus');
 };

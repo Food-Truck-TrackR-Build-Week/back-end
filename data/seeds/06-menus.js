@@ -9,24 +9,28 @@ exports.seed = function (knex) {
       return knex('menuItems').insert([
         {
           id: 100001,
+          menuId: 100001,
           itemName: 'hamburger',
           itemDescription: 'good hamburger',
           itemPrice: 5
         },
         {
           id: 100002,
+          menuId: 100001,
           itemName: 'cheeseburger',
-          itemDescription: 'okayCheeseburger',
+          itemDescription: 'okay cheeseburger',
           itemPrice: 6
         },
         {
           id: 100003,
+          menuId: 100002,
           itemName: 'pulled pork',
           itemDescription: 'yummy sauce',
           itemPrice: 7
         },
         {
           id: 100004,
+          menuId: 100002,
           itemName: 'ribs',
           itemDescription: 'full rack',
           itemPrice: 10
@@ -34,11 +38,27 @@ exports.seed = function (knex) {
       ]);
     })
     .then(function () {
-      return knex('menus_menuItems').insert([
-        { menuId: 100001, menuItemId: 100001 },
-        { menuId: 100001, menuItemId: 100002 },
-        { menuId: 100002, menuItemId: 100003 },
-        { menuId: 100002, menuItemId: 100004 }
+      return knex('itemPhotos').insert([
+        {
+          id: 100001,
+          menuItemId: 100001,
+          url: 'hamburger.jpg'
+        },
+        {
+          id: 100002,
+          menuItemId: 100002,
+          url: 'cheeseburger.jpg'
+        },
+        {
+          id: 100003,
+          menuItemId: 100003,
+          url: 'pulledPork.jpg'
+        },
+        {
+          id: 100004,
+          menuItemId: 100004,
+          url: 'ribs.jpg'
+        }
       ]);
     });
 };

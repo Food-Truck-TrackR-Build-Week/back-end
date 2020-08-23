@@ -3,9 +3,10 @@ const router = require('express').Router();
 const restricted = require('../auth/restricted-middleware');
 
 const Menus = require('./menus-model');
+const MenuItems = require('../menuItems/menuItems-model');
 
 /* ----- GET /api/menus/:id ----- */
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id', (req, res) => {
   const { id } = req.params;
 
   Menus.findById(id)
@@ -22,34 +23,60 @@ router.get('/:id', restricted, (req, res) => {
 });
 
 /* ----- POST /api/menus/:id ----- */
-router.post('/:id', restricted, (req, res) => {
-  const menuId = req.params.id;
-  const { menuItemId } = req.body;
+router.post('/:id', (req, res) => {
+  let menuItem = req.body;
+  menuItem.menuId = req.params.id;
 
-  if (!menuItemId) res.status(400).json({ message: 'menuItemId is required' });
-
-  Menus.addMenuItem(menuId, menuItemId)
-    .then((menu) => {
-      res.status(201).json(menu);
+  MenuItems.add(menuItem)
+    .then((menuItem) => {
+      res.status(201).json(menuItem);
     })
     .catch((err) => {
-      res.send(err);
+      res.status(500).json({ message: err.message });
     });
 });
 
-/* ----- DELETE /api/menus/:id ----- */
-router.delete('/:id', restricted, (req, res) => {
-  const menuId = req.params.id;
-  const { menuItemId } = req.body;
+/* ----- PUT /api/menus/:menuId/menuItems/:menuItemId ----- */
+router.put('/:menuId/menuItems/:menuItemId', (req, res) => {
+  const { menuId, menuItemId } = req.params;
+  const changes = req.body;
 
-  if (!menuItemId) res.status(400).json({ message: 'menuItemId is required' });
-
-  Menus.removeMenuItem(menuId, menuItemId)
-    .then((menu) => {
-      res.json(menu);
+  MenuItems.findById(menuItemId)
+    .then((menuItem) => {
+      if (menuItem) {
+        MenuItems.update(changes, menuItemId).then((updatedMenuItem) => {
+          res.json(updatedMenuItem);
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: 'Could not find menu itme with the given id' });
+      }
     })
     .catch((err) => {
-      res.send(err);
+      res.status(500).json({ message: 'Failed to update menuItem ' });
+    });
+});
+
+/* ----- DELETE /api/menus/:menuId/menuItems/:menuItemId ----- */
+router.delete('/:menuId/menuItems/:menuItemId', (req, res) => {
+  const { menuId, menuItemId } = req.params;
+
+  MenuItems.remove(menuItemId)
+    .then(async (deleted) => {
+      if (deleted) {
+        const menu = await Menus.findById(menuId);
+        res.json(menu);
+      } else {
+        res
+          .status(404)
+          .json({ message: 'Could not find menuItem with given id' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'Failed to delete menuItem'
+      });
     });
 });
 

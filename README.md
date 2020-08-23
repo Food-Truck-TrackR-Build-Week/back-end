@@ -34,6 +34,16 @@
       menu: array of menuItems objects
     }
 
+### Menu Item schema
+
+    {
+      id: integer,
+      menuId: integer,
+      itemName: string,
+      itemDescription: string,
+      itemPrice: integer
+    }
+
 ### API
 
 POST /api/auth/register/diner - creates a new diner
@@ -49,7 +59,7 @@ POST /api/auth/register/operator - creates a new operator
 POST /api/auth/login - authenticates a diner or operator
 
 - `req.body`: `username` and `password` are required
-- returns a JSON web token and the user type (either `diner` or `operator`) - include `{ 'authorization': 'Bearer <token>' }` in request headers to access restricted endpoints
+- returns a JSON web `token`, user `type` (either `diner` or `operator`), and the user's `diner` or `operator` object - include `{ 'authorization': 'Bearer <token>' }` in request headers to access restricted endpoints
 
 GET /api/trucks - restricted, returns an array of all trucks
 
@@ -68,10 +78,12 @@ GET /api/trucks/:id/menu - restricted, returns an array of the `menuItems` from 
 
 POST /api/menus/:id - restricted, adds a menuItem to the menu with the given id
 
-- `req.body`: `menuItemId` is required
+- `req.body`: `itemName`, `itemDescription`, and `itemPrice` are required
 - returns the updated array of the menu's menu items
 
-DELETE /api/menus/:id - restricted, removes a menuItem from the menu with the given id
+PUT /api/menus/:menuId/menuItems/:menuItemId - restricted, updates the menuItem with the given menuItemId
+
+DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes the menuItem with menuItemId from the menu with menuId
 
 - `req.body`: `menuItemId` is required
 - returns the updated array of the menu's menu items

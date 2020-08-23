@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
     });
 });
 
-/* ----- PUT /api/menuItem ----- */
+/* ----- PUT /api/menuItem/:id ----- */
 router.put('/:id', (req, res) => {
   const { id } = req.params;
   const changes = req.body;
@@ -50,6 +50,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+/* ----- DELETE /api/menuItem/:id ----- */
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
 

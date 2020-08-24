@@ -88,12 +88,14 @@ PUT /api/menus/:menuId/menuItems/:menuItemId - restricted, updates the menuItem 
 
 DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes the menuItem with menuItemId from the menu with menuId
 
-POST /api/menus/:menuId/menuItems/:menuItemId - restricted, adds a url (string) to the `itemPhotos` array for the menuItem with the given id
+POST /api/menus/:menuId/menuItems/:menuItemId/itemPhotos - restricted, adds a url (string) to the `itemPhotos` array for the menuItem with the given id
 
+- `req.body`: a `url` (string) is required
 - returns the updated array of itemPhotos
 
-DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes a url (string) from the `itemPhotos` array for the menuItem with the given id
+DELETE /api/menus/:menuId/menuItems/:menuItemId/itemPhotos - restricted, removes a url (string) from the `itemPhotos` array for the menuItem with the given id
 
+- `req.body`: a `url` (string) is required
 - returns the updated array of the itemPhotos
 
 GET /api/diners/:id - restricted, returns the diner with the given id

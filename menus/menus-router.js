@@ -81,14 +81,32 @@ router.delete('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
     });
 });
 
-/* ----- POST /api/menus/:menuId/menuItems/:menuItemId ----- */
-router.post('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
+/* ----- POST /api/menus/:menuId/menuItems/:menuItemId/itemPhotos ----- */
+router.post(
+  '/:menuId/menuItems/:menuItemId/itemPhotos',
+  restricted,
+  (req, res) => {
+    const { menuId, menuItemId } = req.params;
+    const { url } = req.body;
+
+    ItemPhotos.add(menuItemId, url)
+      .then((itemPhotos) => {
+        res.status(201).json(itemPhotos);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+);
+
+/* ----- DELETE /api/menus/:menuId/menuItems/:menuItemId/itemPhotos ----- */
+router.delete('/:menuId/menuItems/:menuItemId/itemPhotos', (req, res) => {
   const { menuId, menuItemId } = req.params;
   const { url } = req.body;
 
-  ItemPhotos.add(menuItemId, url)
+  ItemPhotos.remove(menuItemId, url)
     .then((itemPhotos) => {
-      res.status(201).json(itemPhotos);
+      res.json(itemPhotos);
     })
     .catch((err) => {
       res.send(err);

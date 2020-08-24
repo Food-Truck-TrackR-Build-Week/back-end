@@ -4,6 +4,7 @@ const restricted = require('../auth/restricted-middleware');
 
 const Menus = require('./menus-model');
 const MenuItems = require('../menuItems/menuItems-model');
+const ItemPhotos = require('../itemPhotos/itemPhotos-model');
 
 /* ----- GET /api/menus/:id ----- */
 router.get('/:id', restricted, (req, res) => {
@@ -77,6 +78,20 @@ router.delete('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
       res.status(500).json({
         message: 'Failed to delete menuItem'
       });
+    });
+});
+
+/* ----- POST /api/menus/:menuId/menuItems/:menuItemId ----- */
+router.post('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
+  const { menuId, menuItemId } = req.params;
+  const { url } = req.body;
+
+  ItemPhotos.add(menuItemId, url)
+    .then((itemPhotos) => {
+      res.status(201).json(itemPhotos);
+    })
+    .catch((err) => {
+      res.send(err);
     });
 });
 

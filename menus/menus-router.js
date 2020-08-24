@@ -100,17 +100,21 @@ router.post(
 );
 
 /* ----- DELETE /api/menus/:menuId/menuItems/:menuItemId/itemPhotos ----- */
-router.delete('/:menuId/menuItems/:menuItemId/itemPhotos', (req, res) => {
-  const { menuId, menuItemId } = req.params;
-  const { url } = req.body;
+router.delete(
+  '/:menuId/menuItems/:menuItemId/itemPhotos',
+  restricted,
+  (req, res) => {
+    const { menuId, menuItemId } = req.params;
+    const { url } = req.body;
 
-  ItemPhotos.remove(menuItemId, url)
-    .then((itemPhotos) => {
-      res.json(itemPhotos);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
-});
+    ItemPhotos.remove(menuItemId, url)
+      .then((itemPhotos) => {
+        res.json(itemPhotos);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+);
 
 module.exports = router;

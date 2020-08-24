@@ -119,4 +119,23 @@ router.post('/:id/customerRatings', (req, res) => {
     });
 });
 
+/* ----- DELETE /api/trucks/:id/customerRatings/:ratingId ----- */
+router.delete('/:id/customerRatings/:ratingId', (req, res) => {
+  const { truckId, ratingId } = req.params;
+
+  TruckRatings.remove(ratingId)
+    .then((deleted) => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res
+          .status(404)
+          .json({ message: 'Could not find customerRating with the given id' });
+      }
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 module.exports = router;

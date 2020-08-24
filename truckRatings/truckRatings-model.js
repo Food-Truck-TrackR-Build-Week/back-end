@@ -25,6 +25,13 @@ function findByTruckId(truckId) {
   return db('truckRatings').where({ truckId });
 }
 
-function remove(id) {
-  return db('truckRatings').where({ id }).del();
+async function remove(id) {
+  try {
+    const rating = await findById(id);
+    if (!rating) return;
+
+    return db('truckRatings').where({ id }).del();
+  } catch (error) {
+    throw error;
+  }
 }

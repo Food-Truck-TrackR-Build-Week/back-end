@@ -33,7 +33,7 @@ async function find() {
       const { customerRatings } = truck;
 
       truck.customerRatingsAvg = Math.round(
-        customerRatings.reduce((total, num) => total + num) /
+        customerRatings.reduce((total, num) => total + num, 0) /
           customerRatings.length
       );
     }
@@ -44,8 +44,27 @@ async function find() {
   }
 }
 
-function findById(id) {
-  return db('trucks').where({ id }).first();
+async function findById(id) {
+  try {
+    const truck = await db('trucks').where({ id }).first();
+
+    if (!truck) return;
+
+    truck.menu = await Menus.findByTruckId(id);
+
+    truck.customerRatings = await addTruckRatings(id);
+
+    const { customerRatings } = truck;
+
+    truck.customerRatingsAvg = Math.round(
+      customerRatings.reduce((total, num) => total + num, 0) /
+        customerRatings.length
+    );
+
+    return truck;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function update(changes, id) {

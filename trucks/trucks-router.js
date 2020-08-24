@@ -4,7 +4,6 @@ const restricted = require('../auth/restricted-middleware');
 
 const Trucks = require('./trucks-model');
 const Menus = require('../menus/menus-model');
-const TruckRatings = require('../truckRatings/truckRatings-model');
 const { validTruck } = require('./trucks-service');
 
 /* ----- GET /api/trucks ----- */
@@ -23,9 +22,8 @@ router.get('/:id', restricted, (req, res) => {
   const { id } = req.params;
 
   Trucks.findById(id)
-    .then(async (truck) => {
+    .then((truck) => {
       if (truck) {
-        truck.menu = await Menus.findByTruckId(id);
         res.status(200).json(truck);
       } else {
         res.status(404).json({ message: 'Could not find truck with given id' });

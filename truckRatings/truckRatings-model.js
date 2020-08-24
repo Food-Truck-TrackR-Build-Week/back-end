@@ -7,11 +7,11 @@ module.exports = {
   remove
 };
 
-async function add(truckId, rating) {
+async function add(customerRating) {
   try {
-    const [id] = await db('truckRatings').insert({ truckId, rating }, 'id');
+    const [id] = await db('truckRatings').insert(customerRating, 'id');
 
-    return findById(id);
+    return await findById(id);
   } catch (error) {
     throw error;
   }

@@ -5,6 +5,7 @@ const restricted = require('../auth/restricted-middleware');
 const Trucks = require('./trucks-model');
 const Menus = require('../menus/menus-model');
 const { validTruck } = require('./trucks-service');
+const TruckRatings = require('../truckRatings/truckRatings-model');
 
 /* ----- GET /api/trucks ----- */
 router.get('/', restricted, (req, res) => {
@@ -101,6 +102,20 @@ router.get('/:id/menu', restricted, (req, res) => {
     })
     .catch((err) => {
       res.send(err);
+    });
+});
+
+/* ----- POST /api/trucks/:id/customerRatings ----- */
+router.post('/:id/customerRatings', (req, res) => {
+  const newRating = req.body;
+  newRating.truckId = req.params.id;
+
+  TruckRatings.add(newRating)
+    .then((truckRating) => {
+      res.status(201).json(truckRating);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
     });
 });
 

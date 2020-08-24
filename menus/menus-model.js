@@ -1,5 +1,7 @@
 const db = require('../data/db-config');
 
+const MenuItems = require('../menuItems/menuItems-model');
+
 module.exports = {
   findById,
   findByTruckId
@@ -20,8 +22,8 @@ function findById(id) {
     .orderBy('menuItems.id');
 }
 
-function findByTruckId(truckId) {
-  return db('menus')
+async function findByTruckId(truckId) {
+  const menuItems = await db('menus')
     .join('menuItems', 'menus.id', '=', 'menuItems.menuId')
     .where({ 'menus.truckId': truckId })
     .select(
@@ -31,6 +33,12 @@ function findByTruckId(truckId) {
       'menuItems.itemPrice'
     )
     .orderBy('menuItems.id');
+
+  for (item of menuItems) {
+    item.itemPhotos = await MenuItems.addItemPhotos(item.id);
+  }
+
+  return menuItems;
 }
 
 // async function addMenuItem(menuId, menuItemId) {

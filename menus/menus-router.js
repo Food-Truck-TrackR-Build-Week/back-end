@@ -6,7 +6,7 @@ const Menus = require('./menus-model');
 const MenuItems = require('../menuItems/menuItems-model');
 
 /* ----- GET /api/menus/:id ----- */
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
   const { id } = req.params;
 
   Menus.findById(id)
@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
 });
 
 /* ----- POST /api/menus/:id ----- */
-router.post('/:id', (req, res) => {
+router.post('/:id', restricted, (req, res) => {
   let menuItem = req.body;
   menuItem.menuId = req.params.id;
 
@@ -37,7 +37,7 @@ router.post('/:id', (req, res) => {
 });
 
 /* ----- PUT /api/menus/:menuId/menuItems/:menuItemId ----- */
-router.put('/:menuId/menuItems/:menuItemId', (req, res) => {
+router.put('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
   const { menuId, menuItemId } = req.params;
   const changes = req.body;
 
@@ -59,7 +59,7 @@ router.put('/:menuId/menuItems/:menuItemId', (req, res) => {
 });
 
 /* ----- DELETE /api/menus/:menuId/menuItems/:menuItemId ----- */
-router.delete('/:menuId/menuItems/:menuItemId', (req, res) => {
+router.delete('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
   const { menuId, menuItemId } = req.params;
 
   MenuItems.remove(menuItemId)

@@ -42,6 +42,7 @@
       itemName: string,
       itemDescription: string,
       itemPrice: integer
+      itemPhotos: array of strings
     }
 
 ### API
@@ -85,7 +86,10 @@ PUT /api/menus/:menuId/menuItems/:menuItemId - restricted, updates the menuItem 
 
 DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes the menuItem with menuItemId from the menu with menuId
 
-- `req.body`: `menuItemId` is required
+POST /api/menus/:menuId/menuItems/:menuItemId - restricted, adds a url (string) to the `itemPhotos` array for the menuItem with the given id
+
+DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes a url (string) from the `itemPhotos` array for the menuItem with the given id
+
 - returns the updated array of the menu's menu items
 
 GET /api/diners/:id - restricted, returns the diner with the given id

@@ -58,6 +58,11 @@ exports.seed = function (knex) {
           id: 100004,
           menuItemId: 100004,
           url: 'ribs.jpg'
+        },
+        {
+          id: 100005,
+          menuItemId: 100001,
+          url: 'hamburger2.jpg'
         }
       ]);
     });

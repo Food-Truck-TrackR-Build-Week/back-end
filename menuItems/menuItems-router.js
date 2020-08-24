@@ -1,9 +1,10 @@
 const router = require('express').Router();
+const restricted = require('../auth/restricted-middleware');
 
 const MenuItems = require('./menuItems-model');
 
 /* ----- GET /api/menuItems ----- */
-router.get('/', (req, res) => {
+router.get('/', restricted, (req, res) => {
   MenuItems.find()
     .then((menuItems) => {
       res.status(200).json(menuItems);
@@ -13,10 +14,19 @@ router.get('/', (req, res) => {
     });
 });
 
-module.exports = router;
+/* ----- GET /api/menuItems/:id ----- */
+router.get('/:id', restricted, (req, res) => {
+  MenuItems.findById(req.params.id)
+    .then((menuItem) => {
+      res.status(200).json(menuItem);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to get menuItem' });
+    });
+});
 
 /* ----- POST /api/menuItems ----- */
-router.post('/', (req, res) => {
+router.post('/', restricted, (req, res) => {
   const menuItem = req.body;
 
   MenuItems.add(menuItem)
@@ -28,8 +38,8 @@ router.post('/', (req, res) => {
     });
 });
 
-/* ----- PUT /api/menuItem/:id ----- */
-router.put('/:id', (req, res) => {
+/* ----- PUT /api/menuItems/:id ----- */
+router.put('/:id', restricted, (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -50,8 +60,8 @@ router.put('/:id', (req, res) => {
     });
 });
 
-/* ----- DELETE /api/menuItem/:id ----- */
-router.delete('/:id', (req, res) => {
+/* ----- DELETE /api/menuItems/:id ----- */
+router.delete('/:id', restricted, (req, res) => {
   const { id } = req.params;
 
   MenuItems.remove(id)
@@ -68,3 +78,5 @@ router.delete('/:id', (req, res) => {
       res.status(500).json({ message: 'Failed to delete menuItem' });
     });
 });
+
+module.exports = router;

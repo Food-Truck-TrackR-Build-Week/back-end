@@ -4,6 +4,7 @@ const restricted = require('../auth/restricted-middleware');
 
 const Trucks = require('./trucks-model');
 const Menus = require('../menus/menus-model');
+const TruckRatings = require('../truckRatings/truckRatings-model');
 const { validTruck } = require('./trucks-service');
 
 /* ----- GET /api/trucks ----- */
@@ -13,6 +14,14 @@ router.get('/', restricted, async (req, res) => {
 
     for (const truck of trucks) {
       truck.menu = await Menus.findByTruckId(truck.id);
+      truck.customerRatings = await Trucks.addTruckRatings(truck.id);
+
+      let { customerRatings } = truck;
+
+      truck.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num) /
+          customerRatings.length
+      );
     }
 
     res.status(200).json(trucks);

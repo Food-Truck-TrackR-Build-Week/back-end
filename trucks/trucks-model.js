@@ -5,7 +5,8 @@ module.exports = {
   find,
   findById,
   update,
-  remove
+  remove,
+  addTruckRatings
 };
 
 async function add(truck) {
@@ -39,4 +40,12 @@ function update(changes, id) {
 
 function remove(id) {
   return db('trucks').where({ id }).del();
+}
+
+async function addTruckRatings(id) {
+  return (
+    await db('truckRatings')
+      .where({ 'truckRatings.truckId': id })
+      .select('customerRating')
+  ).map((item) => (item = item.customerRating));
 }

@@ -1,4 +1,5 @@
 const db = require('../data/db-config');
+const Menus = require('../menus/menus-model');
 
 module.exports = {
   add,
@@ -21,8 +22,26 @@ async function add(truck) {
   }
 }
 
-function find() {
-  return db('trucks');
+async function find() {
+  try {
+    const trucks = await db('trucks');
+    for (const truck of trucks) {
+      truck.menu = await Menus.findByTruckId(truck.id);
+
+      truck.customerRatings = await addTruckRatings(truck.id);
+
+      const { customerRatings } = truck;
+
+      truck.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num) /
+          customerRatings.length
+      );
+    }
+
+    return trucks;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function findById(id) {

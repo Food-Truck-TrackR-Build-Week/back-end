@@ -15,13 +15,7 @@ function findById(id) {
   return db('operators')
     .join('users', 'operators.userId', '=', 'users.id')
     .where({ 'operators.id': id })
-    .select(
-      'operators.id as id',
-      'users.id as userId',
-      'username',
-      'password',
-      'email'
-    )
+    .select('operators.id as operatorId', 'username', 'email')
     .first();
 }
 
@@ -30,10 +24,9 @@ function findByUserId(userId) {
     .join('users', 'operators.userId', '=', 'users.id')
     .where({ 'operators.userId': userId })
     .select(
-      'operators.id as id',
+      'operators.id as operatorId',
       'users.id as userId',
       'username',
-      'password',
       'email'
     )
     .first();

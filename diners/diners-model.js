@@ -19,10 +19,9 @@ function findById(id) {
     .join('users', 'diners.userId', '=', 'users.id')
     .where({ 'diners.id': id })
     .select(
-      'diners.id as id',
+      'diners.id as dinerId',
       'users.id as userId',
       'username',
-      'password',
       'email',
       'currentLocation'
     )
@@ -33,14 +32,7 @@ function findByUserId(userId) {
   return db('diners')
     .join('users', 'diners.userId', '=', 'users.id')
     .where({ 'diners.userId': userId })
-    .select(
-      'diners.id as id',
-      'users.id as userId',
-      'username',
-      'password',
-      'email',
-      'currentLocation'
-    )
+    .select('diners.id as dinerId', 'username', 'email', 'currentLocation')
     .first();
 }
 

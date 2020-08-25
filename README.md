@@ -1,10 +1,8 @@
 ### Diner schema
 
     {
-      id: integer,
-      userId: integer,
+      dinerId: integer,
       username: string,
-      password: string,
       email: string,
       currentLocation: string,
       favoriteTrucks: array of truck objects
@@ -13,10 +11,8 @@
 ### Operator schema
 
     {
-      id: integer,
-      userId: integer,
+      operatorId: integer,
       username: string,
-      password: string,
       email: string,
       trucksOwned: array of truck objects
     }

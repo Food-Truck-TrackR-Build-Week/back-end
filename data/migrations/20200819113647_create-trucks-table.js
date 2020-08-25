@@ -5,7 +5,7 @@ exports.up = function (knex) {
     tbl.string('imageOfTruck', 256).notNullable();
     tbl.string('cuisineType', 128).notNullable();
     tbl.string('currentLocation', 256).notNullable();
-    tbl.datetime('departureTime').notNullable().defaultTo(new Date().getTime());
+    tbl.date('departureTime').notNullable().defaultTo(new Date().getTime());
     tbl
       .integer('operatorId')
       .unsigned()

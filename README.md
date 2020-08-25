@@ -29,7 +29,7 @@
       imageOfTruck: string,
       cuisineType: string,
       currentLocation: string,
-      departureTime: date,
+      departureTime: date and time (in ms since 1/1/70),
       operatorId: integer,
       menu: array of menuItems objects,
       customerRatings: array of customerRating values (integers),

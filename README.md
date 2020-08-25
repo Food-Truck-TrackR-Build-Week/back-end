@@ -2,8 +2,10 @@
 
     {
       dinerId: integer,
+      userId: integer,
       username: string,
       email: string,
+      password: string,
       currentLocation: string,
       favoriteTrucks: array of truck objects
     }
@@ -12,8 +14,10 @@
 
     {
       operatorId: integer,
+      userId: integer,
       username: string,
       email: string,
+      password: string,
       trucksOwned: array of truck objects
     }
 
@@ -55,7 +59,7 @@ POST /api/auth/register/diner - creates a new `diner`
 POST /api/auth/register/operator - creates a new `operator`
 
 - `req.body`: `username`, `password`, and `email` are required
-- returns the new operator that was created
+- returns the new `operator` that was created
 
 POST /api/auth/login - authenticates a `diner` or `operator`
 

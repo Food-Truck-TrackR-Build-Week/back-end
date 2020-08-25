@@ -25,6 +25,7 @@ async function add(truck) {
 async function find() {
   try {
     const trucks = await db('trucks');
+
     for (const truck of trucks) {
       truck.menu = await Menus.findByTruckId(truck.id);
 

@@ -9,65 +9,66 @@ module.exports = {
   // removeMenuItem
 };
 
-function findById(id) {
-  return db('menus')
-    .join('menuItems', 'menus.id', '=', 'menuItems.menuId')
-    .where({ 'menus.id': id })
-    .select(
-      'menuItems.id',
-      'menuItems.itemName',
-      'menuItems.itemDescription',
-      'menuItems.itemPrice'
-    )
-    .orderBy('menuItems.id');
+async function findById(id) {
+  try {
+    const menuItems = await db('menus')
+      .join('menuItems', 'menus.id', '=', 'menuItems.menuId')
+      .where({ 'menus.id': id })
+      .select(
+        'menuItems.id',
+        'menuItems.itemName',
+        'menuItems.itemDescription',
+        'menuItems.itemPrice'
+      )
+      .orderBy('menuItems.id');
+
+    for (item of menuItems) {
+      item.itemPhotos = await MenuItems.addItemPhotos(item.id);
+
+      item.customerRatings = await MenuItems.addItemRatings(item.id);
+
+      const { customerRatings } = item;
+
+      item.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num, 0) /
+          customerRatings.length
+      );
+    }
+
+    return menuItems;
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function findByTruckId(truckId) {
-  const menuItems = await db('menus')
-    .join('menuItems', 'menus.id', '=', 'menuItems.menuId')
-    .where({ 'menus.truckId': truckId })
-    .select(
-      'menuItems.id',
-      'menuItems.itemName',
-      'menuItems.itemDescription',
-      'menuItems.itemPrice'
-    )
-    .orderBy('menuItems.id');
+  try {
+    const menuItems = await db('menus')
+      .join('menuItems', 'menus.id', '=', 'menuItems.menuId')
+      .where({ 'menus.truckId': truckId })
+      .select(
+        'menuItems.id',
+        'menuItems.itemName',
+        'menuItems.itemDescription',
+        'menuItems.itemPrice'
+      )
+      .orderBy('menuItems.id');
 
-  for (item of menuItems) {
-    item.itemPhotos = await MenuItems.addItemPhotos(item.id);
+    for (item of menuItems) {
+      item.itemPhotos = await MenuItems.addItemPhotos(item.id);
+
+      item.customerRatings = await MenuItems.addItemRatings(item.id);
+
+      const { customerRatings } = item;
+
+      item.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num, 0) /
+          customerRatings.length
+      );
+    }
+
+    return menuItems;
+  } catch (error) {
+    throw error;
   }
-
-  return menuItems;
 }
-
-// async function addMenuItem(menuId, menuItemId) {
-//   const menu = await findById(menuId);
-//   const found = menu.filter((menuItem) => menuItem.id === menuItemId);
-
-//   if (found.length > 0) {
-//     return menu;
-//   } else {
-//     return db('menus_menuItems')
-//       .insert({ menuId, menuItemId })
-//       .then((res) => {
-//         return findById(menuId);
-//       });
-//   }
-// }
-
-// async function removeMenuItem(menuId, menuItemId) {
-//   const menu = await findById(menuId);
-//   const found = menu.filter((menuItem) => menuItem.id === menuItemId);
-
-//   if (found.length > 0) {
-//     return db('menus_menuItems')
-//       .where({ menuId, menuItemId })
-//       .del()
-//       .then((res) => {
-//         return findById(menuId);
-//       });
-//   } else {
-//     return menu;
-//   }
-// }

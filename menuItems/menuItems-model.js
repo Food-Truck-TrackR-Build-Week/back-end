@@ -6,7 +6,8 @@ module.exports = {
   findById,
   update,
   remove,
-  addItemPhotos
+  addItemPhotos,
+  addItemRatings
 };
 
 async function add(menuItem) {
@@ -35,21 +36,48 @@ async function add(menuItem) {
 }
 
 async function find() {
-  const menuItems = await db('menuItems');
+  try {
+    const menuItems = await db('menuItems');
 
-  for (const item of menuItems) {
-    item.itemPhotos = await addItemPhotos(item.id);
+    for (const item of menuItems) {
+      item.itemPhotos = await addItemPhotos(item.id);
+
+      item.customerRatings = await addItemRatings(item.id);
+
+      const { customerRatings } = item;
+
+      item.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num, 0) /
+          customerRatings.length
+      );
+    }
+    return menuItems;
+  } catch (error) {
+    throw error;
   }
-
-  return menuItems;
 }
 
 async function findById(id) {
-  const menuItem = await db('menuItems').where({ id }).first();
+  try {
+    const menuItem = await db('menuItems').where({ id }).first();
 
-  menuItem.itemPhotos = await addItemPhotos(id);
+    if (!menuItem) return;
 
-  return menuItem;
+    menuItem.itemPhotos = await addItemPhotos(id);
+
+    menuItem.customerRatings = await addItemRatings(id);
+
+    const { customerRatings } = menuItem;
+
+    menuItem.customerRatingsAvg = Math.round(
+      customerRatings.reduce((total, num) => total + num, 0) /
+        customerRatings.length
+    );
+
+    return menuItem;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function update(changes, id) {
@@ -76,4 +104,12 @@ async function addItemPhotos(id) {
   return (
     await db('itemPhotos').where({ 'itemPhotos.menuItemid': id }).select('url')
   ).map((photo) => (photo = photo.url));
+}
+
+async function addItemRatings(id) {
+  return (
+    await db('menuItemRatings')
+      .where({ 'menuItemRatings.menuItemId': id })
+      .select('customerRating')
+  ).map((rating) => (rating = rating.customerRating));
 }

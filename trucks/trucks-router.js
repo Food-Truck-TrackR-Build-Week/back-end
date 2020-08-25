@@ -128,12 +128,10 @@ router.delete('/:truckId/customerRatings/:ratingId', restricted, (req, res) => {
       if (deleted) {
         res.json({ removed: deleted });
       } else {
-        res
-          .status(404)
-          .json({
-            message:
-              'Could not find customerRating with the given ratingId / truckId'
-          });
+        res.status(404).json({
+          message:
+            'Could not find customerRating with the given ratingId / truckId'
+        });
       }
     })
     .catch((err) => {

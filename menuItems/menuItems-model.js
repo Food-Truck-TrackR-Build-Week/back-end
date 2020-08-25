@@ -61,8 +61,15 @@ function update(changes, id) {
     });
 }
 
-function remove(id) {
-  return db('menuItems').where({ id }).del();
+async function remove(menuItemId, menuId) {
+  try {
+    const item = await findById(menuItemId);
+    if (!item || item.menuId != menuId) return;
+
+    return db('menuItems').where({ id: menuItemId, menuId }).del();
+  } catch (error) {
+    throw error;
+  }
 }
 
 async function addItemPhotos(id) {

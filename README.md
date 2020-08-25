@@ -31,7 +31,9 @@
       currentLocation: string,
       departureTime: date,
       operatorId: integer,
-      menu: array of menuItems objects
+      menu: array of menuItems objects,
+      customerRatings: array of customerRating values (integers),
+      customerRatingAvg: integer
     }
 
 ### Menu Item schema
@@ -42,7 +44,7 @@
       itemName: string,
       itemDescription: string,
       itemPrice: integer
-      itemPhotos: array of strings
+      itemPhotos: array of URLs (strings)
     }
 
 ### API
@@ -77,14 +79,21 @@ DELETE /api/trucks/:id - restricted, deletes the truck with the given id
 
 GET /api/trucks/:id/menu - restricted, returns an array of the `menuItems` from the `menu` for the `truck` with the given id
 
+POST /api/trucks/:id/customerRatings - restricted, adds a customerRating to the truck with the given id
+
+- `req.body`: `customerRating` is required
+- returns the customerRating added to the db
+
+DELETE /api/trucks/:truckId/customerRatings/ratingId - restricted, deletes the customerRating with the given ratingId from the truck with the given truckId
+
 POST /api/menus/:id - restricted, adds a menuItem to the menu with the given id
 
 - `req.body`: `itemName`, `itemDescription`, and `itemPrice` are required
-- returns the updated array of the menu's menu items
+- returns the menuItem added to the db
 
 PUT /api/menus/:menuId/menuItems/:menuItemId - restricted, updates the menuItem with the given menuItemId
 
-- returns the updated menu item
+- returns the updated menuItem
 
 DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes the menuItem with menuItemId from the menu with menuId
 

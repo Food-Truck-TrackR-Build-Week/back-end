@@ -106,7 +106,7 @@ router.get('/:id/menu', restricted, (req, res) => {
 });
 
 /* ----- POST /api/trucks/:id/customerRatings ----- */
-router.post('/:id/customerRatings', (req, res) => {
+router.post('/:id/customerRatings', restricted, (req, res) => {
   const newRating = req.body;
   newRating.truckId = req.params.id;
 
@@ -119,18 +119,21 @@ router.post('/:id/customerRatings', (req, res) => {
     });
 });
 
-/* ----- DELETE /api/trucks/:id/customerRatings/:ratingId ----- */
-router.delete('/:id/customerRatings/:ratingId', (req, res) => {
+/* ----- DELETE /api/trucks/:truckId/customerRatings/:ratingId ----- */
+router.delete('/:truckId/customerRatings/:ratingId', restricted, (req, res) => {
   const { truckId, ratingId } = req.params;
 
-  TruckRatings.remove(ratingId)
+  TruckRatings.remove(ratingId, truckId)
     .then((deleted) => {
       if (deleted) {
         res.json({ removed: deleted });
       } else {
         res
           .status(404)
-          .json({ message: 'Could not find customerRating with the given id' });
+          .json({
+            message:
+              'Could not find customerRating with the given ratingId / truckId'
+          });
       }
     })
     .catch((err) => {

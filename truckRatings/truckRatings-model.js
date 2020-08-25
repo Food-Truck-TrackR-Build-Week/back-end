@@ -25,12 +25,12 @@ function findByTruckId(truckId) {
   return db('truckRatings').where({ truckId });
 }
 
-async function remove(id) {
+async function remove(ratingId, truckId) {
   try {
-    const rating = await findById(id);
-    if (!rating) return;
+    const rating = await findById(ratingId);
+    if (!rating || rating.truckId != truckId) return;
 
-    return db('truckRatings').where({ id }).del();
+    return db('truckRatings').where({ id: ratingId, truckId }).del();
   } catch (error) {
     throw error;
   }

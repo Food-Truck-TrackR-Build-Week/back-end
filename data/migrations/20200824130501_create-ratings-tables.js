@@ -18,7 +18,7 @@ exports.up = function (knex) {
         .integer('menuItemId')
         .unsigned()
         .notNullable()
-        .references('menuItem.id')
+        .references('menuItems.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
     });

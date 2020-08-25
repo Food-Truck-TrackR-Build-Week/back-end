@@ -2,10 +2,9 @@
 
     {
       dinerId: integer,
-      userId: integer,
       username: string,
-      email: string,
       password: string,
+      email: string,
       currentLocation: string,
       favoriteTrucks: array of truck objects
     }
@@ -14,10 +13,9 @@
 
     {
       operatorId: integer,
-      userId: integer,
       username: string,
-      email: string,
       password: string,
+      email: string,
       trucksOwned: array of truck objects
     }
 

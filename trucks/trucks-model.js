@@ -83,8 +83,6 @@ function remove(id) {
 
 async function addTruckRatings(id) {
   return (
-    await db('truckRatings')
-      .where({ 'truckRatings.truckId': id })
-      .select('customerRating')
+    await db('truckRatings').where({ truckId: id }).select('customerRating')
   ).map((item) => (item = item.customerRating));
 }

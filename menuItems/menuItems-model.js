@@ -101,15 +101,15 @@ async function remove(menuItemId, menuId) {
 }
 
 async function addItemPhotos(id) {
-  return (
-    await db('itemPhotos').where({ 'itemPhotos.menuItemid': id }).select('url')
-  ).map((photo) => (photo = photo.url));
+  return (await db('itemPhotos').where({ menuItemid: id }).select('url')).map(
+    (photo) => (photo = photo.url)
+  );
 }
 
 async function addItemRatings(id) {
   return (
     await db('menuItemRatings')
-      .where({ 'menuItemRatings.menuItemId': id })
+      .where({ menuItemId: id })
       .select('customerRating')
   ).map((rating) => (rating = rating.customerRating));
 }

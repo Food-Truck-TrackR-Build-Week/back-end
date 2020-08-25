@@ -101,7 +101,7 @@ async function remove(menuItemId, menuId) {
 }
 
 async function addItemPhotos(id) {
-  return (await db('itemPhotos').where({ menuItemid: id }).select('url')).map(
+  return (await db('itemPhotos').where({ menuItemId: id }).select('url')).map(
     (photo) => (photo = photo.url)
   );
 }

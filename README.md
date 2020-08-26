@@ -90,12 +90,10 @@ PUT /api/trucks/:truckId/menu/:menuItemId - restricted, updates the `menuItem` w
 
 DELETE /api/trucks/:truckId/menu/:menuItemId - restricted, removes the `menuItem` with the given menuItemId
 
-POST /api/trucks/:id/customerRatings - restricted, adds a `customerRating` to the `truck` with the given id
+POST /api/trucks/:truckId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `truck` with the given truckId associated with the diner with the given dinerId
 
 - `req.body`: `customerRating` is required
 - returns the `customerRating` added to the `truck`
-
-DELETE /api/trucks/:truckId/customerRatings/:ratingId - restricted, deletes the `customerRating` with the given ratingId from the `truck` with the given truckId
 
 POST /api/menus/:id - restricted, adds a `menuItem` to the `menu` with the given id
 

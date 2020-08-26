@@ -163,10 +163,11 @@ router.delete('/:id/menu/:menuItemId', restricted, (req, res) => {
     });
 });
 
-/* ----- POST /api/trucks/:id/customerRatings ----- */
-router.post('/:id/customerRatings', restricted, (req, res) => {
+/* ----- POST /api/trucks/:truckId/customerRatings/:dinerId ----- */
+router.post('/:truckId/customerRatings/:dinerId', restricted, (req, res) => {
   const newRating = req.body;
-  newRating.truckId = req.params.id;
+  newRating.truckId = req.params.truckId;
+  newRating.dinerId = req.params.dinerId;
 
   TruckRatings.add(newRating)
     .then((truckRating) => {
@@ -174,26 +175,6 @@ router.post('/:id/customerRatings', restricted, (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });
-    });
-});
-
-/* ----- DELETE /api/trucks/:truckId/customerRatings/:ratingId ----- */
-router.delete('/:truckId/customerRatings/:ratingId', restricted, (req, res) => {
-  const { truckId, ratingId } = req.params;
-
-  TruckRatings.remove(ratingId, truckId)
-    .then((deleted) => {
-      if (deleted) {
-        res.json({ removed: deleted });
-      } else {
-        res.status(404).json({
-          message:
-            'Could not find customerRating with the given ratingId / truckId'
-        });
-      }
-    })
-    .catch((err) => {
-      res.send(err);
     });
 });
 

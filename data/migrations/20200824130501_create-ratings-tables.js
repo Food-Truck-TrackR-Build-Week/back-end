@@ -1,7 +1,6 @@
 exports.up = function (knex) {
   return knex.schema
     .createTable('truckRatings', (tbl) => {
-      tbl.increments();
       tbl.integer('customerRating').notNullable();
       tbl
         .integer('truckId')
@@ -10,9 +9,16 @@ exports.up = function (knex) {
         .references('trucks.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+      tbl
+        .integer('dinerId')
+        .unsigned()
+        .notNullable()
+        .references('diners.id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      tbl.primary(['truckId', 'dinerId']);
     })
     .createTable('menuItemRatings', (tbl) => {
-      tbl.increments();
       tbl.integer('customerRating').notNullable();
       tbl
         .integer('menuItemId')
@@ -21,6 +27,14 @@ exports.up = function (knex) {
         .references('menuItems.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+      tbl
+        .integer('dinerId')
+        .unsigned()
+        .notNullable()
+        .references('diners.id')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      tbl.primary(['menuItemId', 'dinerId']);
     });
 };
 

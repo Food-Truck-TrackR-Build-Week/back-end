@@ -120,6 +120,28 @@ router.post('/:id/menu', restricted, (req, res) => {
     });
 });
 
+/* ----- PUT /api/trucks/:truckId/menu/:menuItemId ----- */
+router.put('/:truckId/menu/:menuItemId', restricted, (req, res) => {
+  const { truckId, menuItemId } = req.params;
+  const changes = req.body;
+
+  MenuItems.findById(menuItemId)
+    .then((menuItem) => {
+      if (menuItem) {
+        MenuItems.update(changes, menuItemId).then((updatedMenuItem) => {
+          res.json(updatedMenuItem);
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: 'Could not find menuItem with the given id' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to update menuItem ' });
+    });
+});
+
 /* ----- DELETE /api/trucks/:truckId/menu/:menuItemId ----- */
 router.delete('/:id/menu/:menuItemId', restricted, (req, res) => {
   const { truckId, menuItemId } = req.params;

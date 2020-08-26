@@ -24,11 +24,13 @@ router.post('/register/diner', (req, res) => {
       .first()
       .then((found) => {
         if (found) {
-          return res.status(400).json({ message: 'Username already exists' });
+          res.status(400).json({ message: 'Username already exists' });
+          return;
         }
       })
       .catch((err) => {
-        return res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
+        return;
       });
 
     const rounds = process.env.BCRYPT_ROUNDS || 8;
@@ -42,17 +44,19 @@ router.post('/register/diner', (req, res) => {
         Diners.findByUserId(id)
           .then((diner) => {
             diner.favoriteTrucks = [];
-            return res.status(201).json(diner);
+            res.status(201).json(diner);
+            return;
           })
           .catch((err) => {
             res.status(500).json({ message: err.message });
+            return;
           });
       })
       .catch((err) => {
-        return res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
       });
   } else {
-    return res.status(400).json({
+    res.status(400).json({
       message:
         'Username, password, email, and location are required to create a new diner'
     });
@@ -69,11 +73,13 @@ router.post('/register/operator', (req, res) => {
       .first()
       .then((found) => {
         if (found) {
-          return res.status(400).json({ message: 'Username already exists' });
+          res.status(400).json({ message: 'Username already exists' });
+          return;
         }
       })
       .catch((err) => {
-        return res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
+        return;
       });
 
     const rounds = process.env.BCRYPT_ROUNDS || 8;
@@ -87,17 +93,19 @@ router.post('/register/operator', (req, res) => {
         Operators.findByUserId(id)
           .then((operator) => {
             operator.trucksOwned = [];
-            return res.status(201).json(operator);
+            res.status(201).json(operator);
+            return;
           })
           .catch((err) => {
             res.status(500).json({ message: err.message });
+            return;
           });
       })
       .catch((err) => {
-        return res.status(500).json({ message: err.message });
+        res.status(500).json({ message: err.message });
       });
   } else {
-    return res.status(400).json({
+    res.status(400).json({
       message:
         'Username, password, and email are required to create a new operator'
     });
@@ -119,7 +127,6 @@ router.post('/login', (req, res) => {
           const operator = await Operators.findByUserId(user.id);
           res.status(200).json({ token, type: user.type, operator });
         }
-        res.status(200).json({ token, type: user.type });
       } else {
         res.status(401).json({ message: 'Invalid username/password' });
       }

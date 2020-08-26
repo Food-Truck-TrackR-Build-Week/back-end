@@ -79,6 +79,17 @@ DELETE /api/trucks/:id - restricted, deletes the `truck` with the given id
 
 GET /api/trucks/:id/menu - restricted, returns an array of the `menuItems` from the `menu` for the `truck` with the given id
 
+POST /api/trucks/:id/menu - restricted, adds a `menuItem` to the `menu` with the given id
+
+- `req.body`: `itemName`, `itemDescription`, and `itemPrice` are required
+- returns the `menuItem` added to the `menu`
+
+PUT /api/trucks/:truckId/menu/:menuItemId - restricted, updates the `menuItem` with the given `menuItemId`
+
+- returns the updated `menuItem`
+
+DELETE /api/trucks/:truckId/menu/:menuItemId - restricted, removes the `menuItem` with the given menuItemId
+
 POST /api/trucks/:id/customerRatings - restricted, adds a `customerRating` to the `truck` with the given id
 
 - `req.body`: `customerRating` is required

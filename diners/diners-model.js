@@ -1,5 +1,8 @@
 const db = require('../data/db-config');
 
+const Menus = require('../menus/menus-model');
+const Trucks = require('../trucks/trucks-model');
+
 module.exports = {
   find,
   findById,
@@ -36,18 +39,28 @@ function findByUserId(userId) {
     .first();
 }
 
-function findFavoriteTrucks(id) {
-  return db('trucks')
-    .join('diners_trucks', 'trucks.id', '=', 'diners_trucks.truckId')
-    .where({ 'diners_trucks.dinerId': id })
-    .select(
-      'trucks.id',
-      'trucks.operatorId',
-      'trucks.imageOfTruck',
-      'trucks.cuisineType',
-      'trucks.currentLocation',
-      'trucks.departureTime'
-    );
+async function findFavoriteTrucks(id) {
+  try {
+    const trucks = await db('trucks')
+      .join('diners_trucks', 'trucks.id', '=', 'diners_trucks.truckId')
+      .where({ 'diners_trucks.dinerId': id });
+
+    for (const truck of trucks) {
+      truck.menu = await Menus.findByTruckId(truck.id);
+      truck.customerRatings = await Trucks.addTruckRatings(truck.id);
+
+      const { customerRatings } = truck;
+
+      truck.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num, 0) /
+          customerRatings.length
+      );
+    }
+
+    return trucks;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function findTruckById(id) {

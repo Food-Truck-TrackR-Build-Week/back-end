@@ -29,7 +29,7 @@
       currentLocation: string,
       departureTime: date and time (in ms since 1/1/70),
       operatorId: integer,
-      menu: array of menuItems objects,
+      menu: array of menuItem objects,
       customerRatings: array of customerRating values (integers),
       customerRatingAvg: integer
     }

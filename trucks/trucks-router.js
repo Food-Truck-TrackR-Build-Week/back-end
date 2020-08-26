@@ -7,6 +7,7 @@ const Menus = require('../menus/menus-model');
 const MenuItems = require('../menuItems/menuItems-model');
 const { validTruck } = require('./trucks-service');
 const TruckRatings = require('../truckRatings/truckRatings-model');
+const ItemPhotos = require('../itemPhotos/itemPhotos-model');
 
 /* ----- GET /api/trucks ----- */
 router.get('/', restricted, (req, res) => {
@@ -122,7 +123,7 @@ router.post('/:id/menu', restricted, (req, res) => {
 
 /* ----- PUT /api/trucks/:truckId/menu/:menuItemId ----- */
 router.put('/:truckId/menu/:menuItemId', restricted, (req, res) => {
-  const { truckId, menuItemId } = req.params;
+  const { menuItemId } = req.params;
   const changes = req.body;
 
   MenuItems.findById(menuItemId)
@@ -144,7 +145,7 @@ router.put('/:truckId/menu/:menuItemId', restricted, (req, res) => {
 
 /* ----- DELETE /api/trucks/:truckId/menu/:menuItemId ----- */
 router.delete('/:id/menu/:menuItemId', restricted, (req, res) => {
-  const { truckId, menuItemId } = req.params;
+  const { menuItemId } = req.params;
 
   MenuItems.remove(menuItemId)
     .then((deleted) => {

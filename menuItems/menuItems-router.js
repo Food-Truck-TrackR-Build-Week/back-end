@@ -82,10 +82,11 @@ router.delete('/:id', restricted, async (req, res) => {
     });
 });
 
-/* ----- POST /api/menuItems/:id/customerRatings ----- */
-router.post('/:id/customerRatings', (req, res) => {
+/* ----- POST /api/menuItems/:id/customerRatings/:dinerId ----- */
+router.post('/:menuItemId/customerRatings/:dinerId', restricted, (req, res) => {
   const newRating = req.body;
-  newRating.menuItemId = req.params.id;
+  newRating.menuItemId = req.params.menuItemId;
+  newRating.dinerId = req.params.dinerId;
 
   MenuItemRatings.add(newRating)
     .then((menuItemRating) => {
@@ -106,12 +107,10 @@ router.delete('/:menuItemId/customerRatings/:ratingId', (req, res) => {
       if (deleted) {
         res.json({ removed: deleted });
       } else {
-        res
-          .status(404)
-          .json({
-            message:
-              'Could not find customerRating with the given ratingId / menuItemId'
-          });
+        res.status(404).json({
+          message:
+            'Could not find customerRating with the given ratingId / menuItemId'
+        });
       }
     })
     .catch((err) => {

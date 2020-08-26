@@ -11,6 +11,7 @@ async function add(customerRating) {
   try {
     const { truckId, dinerId } = customerRating;
     const rating = await findBy({ truckId, dinerId });
+
     if (rating) await remove(truckId, dinerId);
 
     await db('truckRatings').insert(customerRating);

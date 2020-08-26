@@ -90,7 +90,7 @@ PUT /api/trucks/:truckId/menu/:menuItemId - restricted, updates the `menuItem` w
 
 DELETE /api/trucks/:truckId/menu/:menuItemId - restricted, removes the `menuItem` with the given menuItemId
 
-POST /api/trucks/:truckId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `truck` with the given truckId associated with the diner with the given dinerId
+POST /api/trucks/:truckId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `truck` with the given truckId associated with the `diner` with the given dinerId
 
 - `req.body`: `customerRating` is required
 - returns the `customerRating` added to the `truck`
@@ -116,7 +116,7 @@ DELETE /api/menus/:menuId/menuItems/:menuItemId/itemPhotos - restricted, removes
 - `req.body`: a `url` (string) is required
 - returns the updated array of the `itemPhotos`
 
-POST /api/menuItems/:id/customerRatings - restricted, adds a `customerRating` to the `menuItem` with the given id
+POST /api/menuItems/:menuItemId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `menuItem` with the given menuItemId associated with the `diner` with the given dinerId
 
 - `req.body`: `customerRating` is required
 - returns the `customerRating` added to the `menuItem`

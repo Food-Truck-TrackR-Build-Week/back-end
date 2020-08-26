@@ -2,37 +2,35 @@ const db = require('../data/db-config');
 
 module.exports = {
   add,
-  findById,
+  findBy,
   findByMenuItemId,
   remove
 };
 
 async function add(menuItemRating) {
   try {
-    console.log('menuItemRating', menuItemRating);
-    const [id] = await db('menuItemRatings').insert(menuItemRating, 'id');
+    const { menuItemId, dinerId } = menuItemRating;
+    const rating = await findBy({ menuItemId, dinerId });
+    console.log('rating', rating);
 
-    return await findById(id);
+    if (rating) await remove(menuItemId, dinerId);
+
+    await db('menuItemRatings').insert(menuItemRating);
+
+    return await findBy({ menuItemId, dinerId });
   } catch (error) {
     throw error;
   }
 }
 
-function findById(id) {
-  return db('menuItemRatings').where({ id }).first();
+function findBy(filter) {
+  return db('menuItemRatings').where(filter).first();
 }
 
 function findByMenuItemId(menuItemId) {
   return db('menuItemRatings').where({ menuItemId });
 }
 
-async function remove(ratingId, menuItemId) {
-  try {
-    const rating = await findById(ratingId);
-    if (!rating || rating.menuItemId != menuItemId) return;
-
-    return db('menuItemRatings').where({ id: ratingId, menuItemId }).del();
-  } catch (error) {
-    throw error;
-  }
+function remove(menuItemId, dinerId) {
+  return db('menuItemRatings').where({ menuItemId, dinerId }).del();
 }

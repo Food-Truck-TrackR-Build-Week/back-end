@@ -89,12 +89,9 @@ function update(changes, id) {
     });
 }
 
-async function remove(menuItemId, menuId) {
+async function remove(menuItemId) {
   try {
-    const item = await findById(menuItemId);
-    if (!item || item.menuId != menuId) return;
-
-    return db('menuItems').where({ id: menuItemId, menuId }).del();
+    return db('menuItems').where({ id: menuItemId }).del();
   } catch (error) {
     throw error;
   }

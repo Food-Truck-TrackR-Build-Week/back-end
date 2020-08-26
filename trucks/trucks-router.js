@@ -4,6 +4,7 @@ const restricted = require('../auth/restricted-middleware');
 
 const Trucks = require('./trucks-model');
 const Menus = require('../menus/menus-model');
+const MenuItems = require('../menuItems/menuItems-model');
 const { validTruck } = require('./trucks-service');
 const TruckRatings = require('../truckRatings/truckRatings-model');
 
@@ -102,6 +103,41 @@ router.get('/:id/menu', restricted, (req, res) => {
     })
     .catch((err) => {
       res.send(err);
+    });
+});
+
+/* ----- POST /api/trucks/:id/menu ----- */
+router.post('/:id/menu', restricted, (req, res) => {
+  let menuItem = req.body;
+  menuItem.menuId = req.params.id;
+
+  MenuItems.add(menuItem)
+    .then((menuItem) => {
+      res.status(201).json(menuItem);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+/* ----- DELETE /api/trucks/:truckId/menu/:menuItemId ----- */
+router.delete('/:id/menu/:menuItemId', restricted, (req, res) => {
+  const { truckId, menuItemId } = req.params;
+
+  MenuItems.remove(menuItemId)
+    .then((deleted) => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res.status(404).json({
+          message: 'Could not find menuItem with given menuItemId / truckId'
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: 'Failed to delete menuItem'
+      });
     });
 });
 

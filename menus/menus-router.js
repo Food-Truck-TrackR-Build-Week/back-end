@@ -63,13 +63,13 @@ router.put('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
 router.delete('/:menuId/menuItems/:menuItemId', restricted, (req, res) => {
   const { menuId, menuItemId } = req.params;
 
-  MenuItems.remove(menuItemId, menuId)
+  MenuItems.remove(menuItemId)
     .then((deleted) => {
       if (deleted) {
         res.json({ removed: deleted });
       } else {
         res.status(404).json({
-          message: 'Could not find menuItem with given menuItemId / truckId'
+          message: 'Could not find menuItem with given id'
         });
       }
     })

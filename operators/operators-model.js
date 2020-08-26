@@ -1,5 +1,8 @@
 const db = require('../data/db-config');
 
+const Menus = require('../menus/menus-model');
+const Trucks = require('../trucks/trucks-model');
+
 module.exports = {
   find,
   findById,
@@ -27,6 +30,25 @@ function findByUserId(userId) {
     .first();
 }
 
-function findTrucksOwned(id) {
-  return db('trucks').where({ operatorId: id });
+async function findTrucksOwned(id) {
+  try {
+    const trucks = await db('trucks').where({ operatorId: id });
+
+    for (const truck of trucks) {
+      truck.menu = await Menus.findByTruckId(truck.id);
+
+      truck.customerRatings = await Trucks.addTruckRatings(truck.id);
+
+      const { customerRatings } = truck;
+
+      truck.customerRatingsAvg = Math.round(
+        customerRatings.reduce((total, num) => total + num, 0) /
+          customerRatings.length
+      );
+    }
+
+    return trucks;
+  } catch (error) {
+    throw error;
+  }
 }

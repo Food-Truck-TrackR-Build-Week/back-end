@@ -178,4 +178,36 @@ router.post('/:truckId/customerRatings/:dinerId', restricted, (req, res) => {
     });
 });
 
+/* ----- POST /api/trucks/:truckId/menu/:menuItemId/itemPhotos ----- */
+router.post('/:truckId/menu/:menuItemId/itemPhotos', restricted, (req, res) => {
+  const { menuItemId } = req.params;
+  const { url } = req.body;
+
+  ItemPhotos.add(menuItemId, url)
+    .then((itemPhotos) => {
+      res.status(201).json(itemPhotos);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+/* ----- DELETE /api/trucks/:truckId/menu/:menuItemId/itemPhotos ----- */
+router.delete(
+  '/:truckId/menu/:menuItemId/itemPhotos',
+  restricted,
+  (req, res) => {
+    const { menuItemId } = req.params;
+    const { url } = req.body;
+
+    ItemPhotos.remove(menuItemId, url)
+      .then((itemPhotos) => {
+        res.json(itemPhotos);
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  }
+);
+
 module.exports = router;

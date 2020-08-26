@@ -79,7 +79,7 @@ DELETE /api/trucks/:id - restricted, deletes the `truck` with the given id
 
 GET /api/trucks/:id/menu - restricted, returns an array of the `menuItems` from the `menu` for the `truck` with the given id
 
-POST /api/trucks/:id/menu - restricted, adds a `menuItem` to the `menu` with the given id
+POST /api/trucks/:id/menu - restricted, adds a `menuItem` to the `menu` for the `truck` with the given id
 
 - `req.body`: `itemName`, `itemDescription`, and `itemPrice` are required
 - returns the `menuItem` added to the `menu`
@@ -88,40 +88,22 @@ PUT /api/trucks/:truckId/menu/:menuItemId - restricted, updates the `menuItem` w
 
 - returns the updated `menuItem`
 
-DELETE /api/trucks/:truckId/menu/:menuItemId - restricted, removes the `menuItem` with the given menuItemId
+DELETE /api/trucks/:truckId/menu/:menuItemId - restricted, removes the `menuItem` with the given `menuItemId`
 
-POST /api/trucks/:truckId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `truck` with the given truckId associated with the `diner` with the given dinerId
+POST /api/trucks/:truckId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `truck` with the given `truckId` associated with the `diner` with the given `dinerId`
 
 - `req.body`: `customerRating` is required
 - returns the `customerRating` added to the `truck`
 
-POST /api/menus/:id - restricted, adds a `menuItem` to the `menu` with the given id
-
-- `req.body`: `itemName`, `itemDescription`, and `itemPrice` are required
-- returns the `menuItem` added to the `menu`
-
-PUT /api/menus/:menuId/menuItems/:menuItemId - restricted, updates the `menuItem` with the given `menuItemId`
-
-- returns the updated `menuItem`
-
-DELETE /api/menus/:menuId/menuItems/:menuItemId - restricted, removes the `menuItem` with menuItemId from the `menu` with the menuId
-
-POST /api/menus/:menuId/menuItems/:menuItemId/itemPhotos - restricted, adds a url (string) to the `itemPhotos` array for the `menuItem` with the given id
+POST /api/trucks/:truckId/menu/:menuItemId/itemPhotos - restricted, adds a url (string) to the `itemPhotos` array for the `menuItem` with the given id
 
 - `req.body`: a `url` (string) is required
 - returns the updated array of `itemPhotos`
 
-DELETE /api/menus/:menuId/menuItems/:menuItemId/itemPhotos - restricted, removes a url (string) from the `itemPhotos` array for the `menuItem` with the given id
+DELETE /api/trucks/:truckId/menu/:menuItemId/itemPhotos - restricted, removes a url (string) from the `itemPhotos` array for the `menuItem` with the given id
 
 - `req.body`: a `url` (string) is required
 - returns the updated array of the `itemPhotos`
-
-POST /api/menuItems/:menuItemId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `menuItem` with the given menuItemId associated with the `diner` with the given dinerId
-
-- `req.body`: `customerRating` is required
-- returns the `customerRating` added to the `menuItem`
-
-DELETE /api/menuItems/menuItemId/customerRatings/:ratingId - restricted, deletes the `customerRating` with the given ratingId from the `menuItem` with the given menuItemId
 
 GET /api/diners/:id - restricted, returns the `diner` with the given id
 

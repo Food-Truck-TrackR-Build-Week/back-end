@@ -53,7 +53,7 @@ https://documenter.getpostman.com/view/12479788/TVCY6CA6
 
 POST /api/auth/register/diner - creates a new `diner`
 
-- `req.body`: `username`, `password`, `email` and `location` are required
+- `req.body`: `username`, `password`, and `email` are required, `currentLocation` is optional
 - returns the new `diner` that was created
 
 POST /api/auth/register/operator - creates a new `operator`

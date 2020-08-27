@@ -15,9 +15,7 @@ function validLogin(credentials) {
 }
 
 function validDiner(diner) {
-  return Boolean(
-    diner.username && diner.password && diner.email && diner.location
-  );
+  return Boolean(diner.username && diner.password && diner.email);
 }
 
 function validOperator(operator) {

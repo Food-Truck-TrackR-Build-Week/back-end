@@ -58,7 +58,7 @@ router.post('/register/diner', (req, res) => {
   } else {
     res.status(400).json({
       message:
-        'Username, password, email, and location are required to create a new diner'
+        'Username, password, and email are required to create a new diner'
     });
   }
 });

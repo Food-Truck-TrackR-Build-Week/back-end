@@ -20,7 +20,7 @@ async function add(user, userType) {
     );
 
     if (userType === 'diner') {
-      await db('diners').insert({ currentLocation: user.location, userId: id });
+      await db('diners').insert({ userId: id });
     } else {
       await db('operators').insert({ userId: id });
     }

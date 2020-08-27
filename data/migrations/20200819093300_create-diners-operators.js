@@ -10,7 +10,10 @@ exports.up = function (knex) {
         .references('users.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-      tbl.string('currentLocation', 256).notNullable();
+      tbl
+        .string('currentLocation', 256)
+        .notNullable()
+        .defaultTo('43.6034958,-110.73633619999998');
     })
     .createTable('operators', (tbl) => {
       tbl.increments();

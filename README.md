@@ -49,6 +49,8 @@
 
 ### API
 
+https://documenter.getpostman.com/view/12479788/TVCY6CA6
+
 POST /api/auth/register/diner - creates a new `diner`
 
 - `req.body`: `username`, `password`, `email` and `location` are required

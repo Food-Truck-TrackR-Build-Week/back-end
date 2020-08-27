@@ -29,6 +29,28 @@ router.get('/:id', restricted, (req, res) => {
     });
 });
 
+/* ----- PUT /api/diners/:id ----- */
+router.put('/:id', restricted, (req, res) => {
+  const { id } = req.params;
+  const newLocation = req.body.currentLocation;
+
+  Diners.findById(id)
+    .then((diner) => {
+      if (diner) {
+        Diners.updateLocation(newLocation, id).then((updatedDiner) => {
+          res.json(updatedDiner);
+        });
+      } else {
+        res
+          .status(404)
+          .json({ message: 'Could not find diner with the given id' });
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to update currentLocation' });
+    });
+});
+
 /* ----- GET /api/diners/:id/favoriteTrucks ----- */
 router.get('/:id/favoriteTrucks', restricted, checkDinerId, (req, res) => {
   const { id } = req.params;

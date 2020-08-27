@@ -109,6 +109,11 @@ DELETE /api/trucks/:truckId/menu/:menuItemId/itemPhotos - restricted, removes a 
 
 GET /api/diners/:id - restricted, returns the `diner` with the given id
 
+PUT /api/diners/:id - restricted, updates the currentLocation of the `diner` with the given id
+
+- `req.body`: a `currentLocation` (string with the format '<latitude>,<longitude>') is required
+- returns the updated `diner`
+
 GET /api/diners/:id/favoriteTrucks - restricted, returns an array of `favoriteTrucks` of the `diner` with the given id
 
 POST /api/diners/:id/favoriteTrucks - restricted, adds a `truck` to the array of `favoriteTrucks` of the `diner` with the given id

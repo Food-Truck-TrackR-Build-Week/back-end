@@ -7,6 +7,7 @@ module.exports = {
   find,
   findById,
   findByUserId,
+  updateLocation,
   findFavoriteTrucks,
   findTruckById,
   addTruckToFavs,
@@ -37,6 +38,15 @@ function findByUserId(userId) {
     .where({ 'diners.userId': userId })
     .select('diners.id as dinerId', 'username', 'email', 'currentLocation')
     .first();
+}
+
+function updateLocation(newLocation, id) {
+  return db('diners')
+    .where({ id })
+    .update({ currentLocation: newLocation })
+    .then((count) => {
+      return findById(id);
+    });
 }
 
 async function findFavoriteTrucks(id) {

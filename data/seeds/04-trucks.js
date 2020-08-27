@@ -6,7 +6,7 @@ exports.seed = function (knex) {
       imageOfTruck: 'truck.jpg',
       cuisineType: 'thai',
       operatorId: 100001,
-      currentLocation: 'GA'
+      currentLocation: '43.587506, -110.827832'
     },
     {
       id: 100002,
@@ -14,7 +14,7 @@ exports.seed = function (knex) {
       imageOfTruck: 'truck.jpg',
       cuisineType: 'bbq',
       operatorId: 100002,
-      currentLocation: 'WY'
+      currentLocation: '43.786934, -110.959504'
     }
   ]);
 };

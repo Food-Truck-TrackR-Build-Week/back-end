@@ -5,7 +5,7 @@
       username: string,
       password: string,
       email: string,
-      currentLocation: string,
+      currentLocation: string '<latitude>,<longitude>',
       favoriteTrucks: array of truck objects
     }
 

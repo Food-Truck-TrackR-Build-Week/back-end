@@ -11,7 +11,6 @@ async function add(menuItemRating) {
   try {
     const { menuItemId, dinerId } = menuItemRating;
     const rating = await findBy({ menuItemId, dinerId });
-    console.log('rating', rating);
 
     if (rating) await remove(menuItemId, dinerId);
 

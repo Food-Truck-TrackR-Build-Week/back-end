@@ -7,6 +7,7 @@ const Menus = require('../menus/menus-model');
 const MenuItems = require('../menuItems/menuItems-model');
 const { validTruck } = require('./trucks-service');
 const TruckRatings = require('../truckRatings/truckRatings-model');
+const MenuItemRatings = require('../menuItemRatings/menuItemRatings-model');
 const ItemPhotos = require('../itemPhotos/itemPhotos-model');
 
 /* ----- GET /api/trucks ----- */
@@ -178,6 +179,25 @@ router.post('/:truckId/customerRatings/:dinerId', restricted, (req, res) => {
       res.status(500).json({ message: err.message });
     });
 });
+
+/* ----- POST /api/trucks/:truckId/menu/:menuItemId/customerRatings/:dinerId ----- */
+router.post(
+  '/:truckId/menu/:menuItemId/customerRatings/:dinerId',
+  restricted,
+  (req, res) => {
+    const newRating = req.body;
+    newRating.menuItemId = req.params.menuItemId;
+    newRating.dinerId = req.params.dinerId;
+
+    MenuItemRatings.add(newRating)
+      .then((menuItemRating) => {
+        res.status(201).json(menuItemRating);
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.message });
+      });
+  }
+);
 
 /* ----- POST /api/trucks/:truckId/menu/:menuItemId/itemPhotos ----- */
 router.post('/:truckId/menu/:menuItemId/itemPhotos', restricted, (req, res) => {

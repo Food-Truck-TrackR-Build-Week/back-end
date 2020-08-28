@@ -81,6 +81,12 @@ async function findById(id) {
 }
 
 function update(changes, id) {
+  const { itemPhotos } = changes;
+
+  if (itemPhotos) {
+    delete changes.itemPhotos;
+  }
+
   return db('menuItems')
     .where({ id })
     .update(changes)

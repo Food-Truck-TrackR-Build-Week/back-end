@@ -33,7 +33,7 @@ exports.up = function (knex) {
         .references('menuItems.id')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-      tbl.string('url', 128).unique().notNullable();
+      tbl.string('url', 256).unique().notNullable();
     });
 };
 

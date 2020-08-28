@@ -16,7 +16,7 @@ async function add(menuItemRating) {
 
     await db('menuItemRatings').insert(menuItemRating);
 
-    return await findBy({ menuItemId, dinerId });
+    return await findByMenuItemId(menuItemId);
   } catch (error) {
     throw error;
   }

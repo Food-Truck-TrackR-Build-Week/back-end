@@ -16,7 +16,7 @@ async function add(customerRating) {
 
     await db('truckRatings').insert(customerRating);
 
-    return await findBy({ truckId, dinerId });
+    return await findByTruckId(truckId);
   } catch (error) {
     throw error;
   }

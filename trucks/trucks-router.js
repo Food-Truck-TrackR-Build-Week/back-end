@@ -172,8 +172,8 @@ router.post('/:truckId/customerRatings/:dinerId', restricted, (req, res) => {
   newRating.dinerId = req.params.dinerId;
 
   TruckRatings.add(newRating)
-    .then((truckRating) => {
-      res.status(201).json(truckRating);
+    .then((truckRatings) => {
+      res.status(201).json(truckRatings);
     })
     .catch((err) => {
       res.status(500).json({ message: err.message });
@@ -190,8 +190,8 @@ router.post(
     newRating.dinerId = req.params.dinerId;
 
     MenuItemRatings.add(newRating)
-      .then((menuItemRating) => {
-        res.status(201).json(menuItemRating);
+      .then((menuItemRatings) => {
+        res.status(201).json(menuItemRatings);
       })
       .catch((err) => {
         res.status(500).json({ message: err.message });

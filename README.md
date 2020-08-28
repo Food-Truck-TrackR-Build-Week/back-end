@@ -31,7 +31,7 @@
       operatorId: integer,
       menu: array of menuItem objects,
       customerRatings: array of customerRating values (integers),
-      customerRatingAvg: integer
+      customerRatingsAvg: integer
     }
 
 ### Menu Item schema
@@ -44,7 +44,7 @@
       itemPrice: integer
       itemPhotos: array of URLs (strings),
       customerRatings: array of customerRating values (integers),
-      customerRatingAvg: integer
+      customerRatingsAvg: integer
     }
 
 ### API

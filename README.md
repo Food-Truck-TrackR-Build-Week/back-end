@@ -95,12 +95,12 @@ DELETE /api/trucks/:truckId/menu/:menuItemId - restricted, removes the `menuItem
 POST /api/trucks/:truckId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `truck` with the given `truckId` associated with the `diner` with the given `dinerId`
 
 - `req.body`: `customerRating` is required
-- returns the `customerRating` added to the `truck`
+- returns the array of `customerRatings` for the `truck` with the given `truckId`
 
-POST /api/trucks/:truckId/menu/:menuId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `menuItem` with the given `menuId` associated with the `diner` with the given `dinerId`
+POST /api/trucks/:truckId/menu/:menuItemId/customerRatings/:dinerId - restricted, adds (or replaces) a `customerRating` for the `menuItem` with the given `menuItemId` associated with the `diner` with the given `dinerId`
 
 - `req.body`: `customerRating` is required
-- returns the `customerRating` added to the `menuItem`
+- returns the array of `customerRatings` for the `menuItem` with the given `menuItemId`
 
 POST /api/trucks/:truckId/menu/:menuItemId/itemPhotos - restricted, adds a url (string) to the `itemPhotos` array for the `menuItem` with the given id
 

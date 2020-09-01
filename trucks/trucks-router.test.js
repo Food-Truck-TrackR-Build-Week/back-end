@@ -94,4 +94,20 @@ describe('trucks-router', () => {
       expect(res.body.name).toBe('new truck name');
     });
   });
+
+  describe('DELETE /api/trucks/:id', () => {
+    beforeAll(async () => {
+      res = await request(server)
+        .delete('/api/trucks/100003')
+        .set('Authorization', `Bearer ${token}`);
+    });
+
+    it('should return a JSON object', () => {
+      expect(res.type).toBe('application/json');
+    });
+
+    it('should delete a truck', () => {
+      expect(res.body).toEqual({ removed: 1 });
+    });
+  });
 });

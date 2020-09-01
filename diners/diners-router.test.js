@@ -61,7 +61,7 @@ describe('diners-router', () => {
       expect(res.type).toBe('application/json');
     });
 
-    it('should return a diner with location earth', () => {
+    it('should update the currentLocation', () => {
       expect(res.body.currentLocation).toBe('earth');
     });
   });
@@ -96,6 +96,23 @@ describe('diners-router', () => {
 
     it('should return a JSON object', () => {
       expect(res.type).toBe('application/json');
+    });
+  });
+
+  describe('DELETE /api/diners/:id/favoriteTrucks', () => {
+    beforeAll(async () => {
+      res = await request(server)
+        .delete('/api/diners/100002/favoriteTrucks')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ truckId: 100002 });
+    });
+
+    it('should return a JSON object', () => {
+      expect(res.type).toBe('application/json');
+    });
+
+    it('should remove truck 1000002 from favoriteTrucks', () => {
+      expect(res.body.length).toEqual(1);
     });
   });
 });

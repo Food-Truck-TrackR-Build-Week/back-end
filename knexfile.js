@@ -46,6 +46,12 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
+    },
+    ssl: true,
+    extra: {
+      ssl: {
+        rejectUnauthorized: false
+      }
     }
   }
 };

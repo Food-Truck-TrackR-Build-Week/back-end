@@ -1,4 +1,4 @@
-const pgConnection = process.env.DATABASE_URL;
+const pgConnection = `${process.env.DATABASE_URL}?sslmode=disable`;
 
 module.exports = {
   development: {
@@ -46,12 +46,6 @@ module.exports = {
     },
     seeds: {
       directory: './data/seeds'
-    },
-    ssl: true,
-    extra: {
-      ssl: {
-        rejectUnauthorized: false
-      }
     }
   }
 };

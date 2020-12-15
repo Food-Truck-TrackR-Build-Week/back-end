@@ -1,4 +1,4 @@
-const pgConnection = `${process.env.DATABASE_URL}?sslmode=require`;
+const pgConnection = process.env.DATABASE_URL;
 
 module.exports = {
   development: {

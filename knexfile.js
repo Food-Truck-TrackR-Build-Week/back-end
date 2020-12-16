@@ -3,9 +3,7 @@ const pgConnection = process.env.DATABASE_URL;
 module.exports = {
   development: {
     client: 'pg',
-    connection: {
-      filename: './data/data.db3'
-    },
+    connection: pgConnection,
     migrations: {
       directory: './data/migrations'
     },
@@ -16,9 +14,7 @@ module.exports = {
 
   testing: {
     client: 'pg',
-    connection: {
-      filename: './data/test.db3'
-    },
+    connection: pgConnection,
     migrations: {
       directory: './data/migrations'
     },

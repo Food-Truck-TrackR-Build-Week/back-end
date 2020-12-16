@@ -2,8 +2,16 @@ const pgConnection = process.env.DATABASE_URL;
 
 module.exports = {
   development: {
-    client: 'pg',
-    connection: pgConnection,
+    client: 'sqlite',
+    useNullAsDefult: true,
+    connection: {
+      filename: './data/data/db3'
+    },
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys=ON', done);
+      }
+    },
     migrations: {
       directory: './data/migrations'
     },
@@ -13,8 +21,11 @@ module.exports = {
   },
 
   testing: {
-    client: 'pg',
-    connection: pgConnection,
+    client: 'sqlite',
+    useNullAsDefult: true,
+    connection: {
+      filename: './data/data/db3'
+    },
     migrations: {
       directory: './data/migrations'
     },
